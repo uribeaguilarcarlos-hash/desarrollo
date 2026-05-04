@@ -154,7 +154,7 @@
                     </div>
                 </div>
 
-<!-- Columna Derecha: Diagramas de Capacidades -->
+                <!-- Columna Derecha: Diagramas de Capacidades -->
                 <div style="flex: 1.5; min-width: 300px;">
                     <h3 style="margin-top: 0; color: #000;"><i class="fas fa-truck-container"></i> <span data-i18n="cap_titulo">Capacidades Estándar</span></h3>
                     
@@ -193,11 +193,12 @@
                         </div>
                         <div style="text-align: right;"><span style="font-size: 1.1em; font-weight: bold;" data-i18n="cap_palet_vol">Vol. Máx: ~2.1 CBM</span></div>
                     </div>
-                </div>>
+                </div>
             </div>
+        </div>
     </section>
 
-<!-- SECCIÓN POR QUÉ ELEGIRNOS -->
+    <!-- SECCIÓN POR QUÉ ELEGIRNOS -->
     <section id="nosotros" class="why-us">
         <div class="container">
             <div class="why-us-content">
@@ -230,7 +231,7 @@
                     </div>
 
                 </div>
-                <div class="text-block" style="margin-top: 50px;"> <!-- Margen para alinear en web -->
+                <div class="text-block" style="margin-top: 50px;">
                     <div class="why-item">
                         <span class="bullet"></span>
                         <div>
@@ -294,7 +295,7 @@
             }
         }
 
-// 2. Diccionario de Idiomas ACTUALIZADO CON PESO BRUTO
+        // 2. Diccionario de Idiomas ACTUALIZADO CON PESO BRUTO
         const traducciones = {
             es: {
                 nav_inicio: "Inicio", nav_servicios: "Servicios", nav_herramientas: "Herramientas", nav_nosotros: "Nosotros", nav_contacto: "Contacto", nav_sistema: "Sistema",
@@ -402,6 +403,25 @@
                 contacto_dir: "地址：Av. Fuentes de Las Pirámides 16, Floor 3 office 1, Lomas de Tecamachalco, 53950 Naucalpan de Juárez, Mex."
             }
         };
+
+        // 3. Función que cambia los textos (¡Esta era la que faltaba!)
+        function cambiarIdioma(idioma) {
+            const elementosTexto = document.querySelectorAll('[data-i18n]');
+            elementosTexto.forEach(el => {
+                const clave = el.getAttribute('data-i18n');
+                if(traducciones[idioma][clave]) {
+                    el.innerHTML = traducciones[idioma][clave];
+                }
+            });
+
+            const elementosInput = document.querySelectorAll('[data-i18n-placeholder]');
+            elementosInput.forEach(el => {
+                const clave = el.getAttribute('data-i18n-placeholder');
+                if(traducciones[idioma][clave]) {
+                    el.placeholder = traducciones[idioma][clave];
+                }
+            });
+        }
     </script>
 
 </body>
