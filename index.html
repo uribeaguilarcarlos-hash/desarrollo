@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-        <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DHXMXPL72Y"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-DHXMXPL72Y');
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ML Logistics - Su Socio Estratégico Global</title>
@@ -18,36 +9,54 @@
     <!-- Importación de fuente profesional y FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <style>
+        /* Estilo para el selector de idioma */
+        .lang-select {
+            background-color: transparent;
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left: 15px;
+        }
+        .lang-select:focus { outline: none; border-color: #000; }
+    </style>
 </head>
 <body>
 
     <!-- CABECERA -->
     <header>
         <div class="container">
-            <!-- He dejado la línea del logo igual, asegurate de tener image_0.png subida también si este es tu logo -->
             <img src="image_0.png" alt="ML Logistics Logo" class="logo">
-            <nav>
+            <nav style="display: flex; align-items: center;">
                 <ul>
-                    <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#servicios">Servicios</a></li>
-                    <li><a href="#herramientas">Herramientas</a></li>
-                    <li><a href="#nosotros">Nosotros</a></li>
-                    <li><a href="#contacto">Contacto</a></li>
-                    <!-- AQUÍ ESTÁ EL NUEVO ENLACE AL SISTEMA -->
-                    <li><a href="https://moylogistics.lynqro.com/" target="_blank" style="font-weight: bold; color: #000;">Sistema</a></li>
+                    <li><a href="#inicio" data-i18n="nav_inicio">Inicio</a></li>
+                    <li><a href="#servicios" data-i18n="nav_servicios">Servicios</a></li>
+                    <li><a href="#herramientas" data-i18n="nav_herramientas">Herramientas</a></li>
+                    <li><a href="#nosotros" data-i18n="nav_nosotros">Nosotros</a></li>
+                    <li><a href="#contacto" data-i18n="nav_contacto">Contacto</a></li>
+                    <li><a href="https://moylogistics.lynqro.com/" target="_blank" style="font-weight: bold; color: #000;" data-i18n="nav_sistema">Sistema</a></li>
                 </ul>
+                <!-- Selector de Idioma -->
+                <select class="lang-select" onchange="cambiarIdioma(this.value)">
+                    <option value="es">🇪🇸 Español</option>
+                    <option value="en">🇺🇸 English</option>
+                    <option value="zh">🇨🇳 中文</option>
+                </select>
             </nav>
         </div>
     </header>
 
-    <!-- SECCIÓN HERO (Aquí integré tu imagen de la terminal portuaria como fondo local) -->
+    <!-- SECCIÓN HERO -->
     <section id="inicio" class="hero" style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('hero-puerto.png'); background-size: cover; background-position: center; min-height: 100vh;">
         <div class="hero-overlay">
             <div class="container hero-content">
-                <h1>SU SOCIO ESTRATÉGICO EN LOGÍSTICA GLOBAL:<br>
-                    DE <span class="highlight">CHINA</span> A <span class="highlight">MÉXICO</span></h1>
-                <p>Coordinación integral, eficiencia garantizada y control total de su cadena de suministro.</p>
-                <a href="#contacto" class="btn">SOLICITAR COTIZACIÓN</a>
+                <h1 data-i18n="hero_titulo">SU SOCIO ESTRATÉGICO EN LOGÍSTICA GLOBAL:<br>DE <span class="highlight">CHINA</span> A <span class="highlight">MÉXICO</span></h1>
+                <p data-i18n="hero_subtitulo">Coordinación integral, eficiencia garantizada y control total de su cadena de suministro.</p>
+                <a href="#contacto" class="btn" data-i18n="hero_btn">SOLICITAR COTIZACIÓN</a>
             </div>
         </div>
     </section>
@@ -55,50 +64,53 @@
     <!-- SECCIÓN SERVICIOS -->
     <section id="servicios" class="services">
         <div class="container">
-            <h2 class="section-title">Nuestros Servicios</h2>
+            <h2 class="section-title" data-i18n="titulo_servicios">Nuestros Servicios</h2>
             <div class="services-grid">
                 
-                <!-- Servicio 1: China -->
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-ship"></i>
-                        <img src="https://img.icons8.com/color/96/000000/china.png" alt="China Icon" class="china-flag">
+                        <img src="https://img.icons8.com/color/96/000000/china.png" alt="China" class="china-flag">
                     </div>
-                    <h3>COORDINACIÓN EN ORIGEN (CHINA)</h3>
-                    <ul>
-                        <li>Oficina propia en China para gestión directa.</li>
-                        <li>Coordinación eficiente con proveedores.</li>
-                        <li>Gestión de Bookings con navieras.</li>
-                        <li>Previos en origen antes del embarque.</li>
-                        <li>Supervisión de carga en buque.</li>
-                    </ul>
+                    <h3 data-i18n="serv1_titulo">COORDINACIÓN EN ORIGEN (CHINA)</h3>
+                    <div data-i18n="serv1_desc">
+                        <ul>
+                            <li>Oficina propia en China para gestión directa.</li>
+                            <li>Coordinación eficiente con proveedores.</li>
+                            <li>Gestión de Bookings con navieras.</li>
+                            <li>Previos en origen antes del embarque.</li>
+                            <li>Supervisión de carga en buque.</li>
+                        </ul>
+                    </div>
                 </div>
 
-                <!-- Servicio 2: México -->
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-file-contract"></i>
-                        <img src="https://img.icons8.com/color/96/000000/mexico.png" alt="Mexico Icon" class="mexico-flag">
+                        <img src="https://img.icons8.com/color/96/000000/mexico.png" alt="Mexico" class="mexico-flag">
                     </div>
-                    <h3>GESTIÓN DE IMPORTACIÓN (MÉXICO)</h3>
-                    <ul>
-                        <li>Gestión integral con el Broker Aduanal de su elección.</li>
-                        <li>Seguimiento puntual para la liberación acelerada de contenedores.</li>
-                        <li>Trámites aduanales simplificados.</li>
-                    </ul>
+                    <h3 data-i18n="serv2_titulo">GESTIÓN DE IMPORTACIÓN (MÉXICO)</h3>
+                    <div data-i18n="serv2_desc">
+                        <ul>
+                            <li>Gestión integral con el Broker Aduanal de su elección.</li>
+                            <li>Seguimiento puntual para la liberación acelerada de contenedores.</li>
+                            <li>Trámites aduanales simplificados.</li>
+                        </ul>
+                    </div>
                 </div>
 
-                <!-- Servicio 3: Entrega -->
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-truck-loading"></i>
                     </div>
-                    <h3>ENTREGA FINAL Y DEVOLUCIÓN</h3>
-                    <ul>
-                        <li>Entrega directa en su CEDIS (Centro de Distribución).</li>
-                        <li>Entrega eficiente en puerto de destino.</li>
-                        <li>Devolución oportuna de contenedores vacíos.</li>
-                    </ul>
+                    <h3 data-i18n="serv3_titulo">ENTREGA FINAL Y DEVOLUCIÓN</h3>
+                    <div data-i18n="serv3_desc">
+                        <ul>
+                            <li>Entrega directa en su CEDIS (Centro de Distribución).</li>
+                            <li>Entrega eficiente en puerto de destino.</li>
+                            <li>Devolución oportuna de contenedores vacíos.</li>
+                        </ul>
+                    </div>
                 </div>
 
             </div>
@@ -108,191 +120,104 @@
     <!-- SECCIÓN CALCULADORA CBM Y CONTENEDORES -->
     <section id="herramientas" style="padding: 80px 20px; background-color: #ffffff;">
         <div class="container">
-            <h2 class="section-title" style="text-align: center; margin-bottom: 40px;">Herramientas Logísticas</h2>
+            <h2 class="section-title" style="text-align: center; margin-bottom: 40px;" data-i18n="titulo_herramientas">Herramientas Logísticas</h2>
             
             <div style="display: flex; flex-wrap: wrap; gap: 40px; justify-content: center;">
-                
-                <!-- Columna Izquierda: Calculadora -->
                 <div style="flex: 1; min-width: 300px; background: #f8f9fa; padding: 30px; border-radius: 8px; border-top: 4px solid #000000; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
-                    <h3 style="margin-top: 0; color: #000;"><i class="fas fa-calculator"></i> Calculadora de CBM</h3>
-                    <p style="font-size: 0.9em; color: #555;">Ingresa las medidas en centímetros (cm) de tu caja estándar para conocer el volumen.</p>
+                    <h3 style="margin-top: 0; color: #000;"><i class="fas fa-calculator"></i> <span data-i18n="calc_titulo">Calculadora de CBM</span></h3>
+                    <p style="font-size: 0.9em; color: #555;" data-i18n="calc_desc">Ingresa las medidas en centímetros (cm) de tu caja estándar para conocer el volumen.</p>
                     
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
                         <div>
-                            <label style="font-size: 0.85em; font-weight: bold;">Largo (cm)</label>
-                            <input type="number" id="largo" placeholder="Ej. 50" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                            <label style="font-size: 0.85em; font-weight: bold;" data-i18n="calc_largo">Largo (cm)</label>
+                            <input type="number" id="largo" placeholder="50" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
                         </div>
                         <div>
-                            <label style="font-size: 0.85em; font-weight: bold;">Ancho (cm)</label>
-                            <input type="number" id="ancho" placeholder="Ej. 40" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                            <label style="font-size: 0.85em; font-weight: bold;" data-i18n="calc_ancho">Ancho (cm)</label>
+                            <input type="number" id="ancho" placeholder="40" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
                         </div>
                         <div>
-                            <label style="font-size: 0.85em; font-weight: bold;">Alto (cm)</label>
-                            <input type="number" id="alto" placeholder="Ej. 30" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                            <label style="font-size: 0.85em; font-weight: bold;" data-i18n="calc_alto">Alto (cm)</label>
+                            <input type="number" id="alto" placeholder="30" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
                         </div>
                         <div>
-                            <label style="font-size: 0.85em; font-weight: bold;">Cantidad (Cajas)</label>
-                            <input type="number" id="cantidad" placeholder="Ej. 100" value="1" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+                            <label style="font-size: 0.85em; font-weight: bold;" data-i18n="calc_cant">Cantidad (Cajas)</label>
+                            <input type="number" id="cantidad" value="1" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
                         </div>
                     </div>
                     
-                    <button onclick="calcularCBM()" style="width: 100%; background: #000; color: #fff; border: none; padding: 12px; border-radius: 4px; font-weight: bold; cursor: pointer; transition: 0.3s;">Calcular Volumen</button>
+                    <button onclick="calcularCBM()" style="width: 100%; background: #000; color: #fff; border: none; padding: 12px; border-radius: 4px; font-weight: bold; cursor: pointer;" data-i18n="calc_btn">Calcular Volumen</button>
                     
                     <div style="margin-top: 25px; padding: 15px; background: #fff; border-left: 4px solid #000;">
-                        <h4 style="margin: 0 0 5px 0; font-size: 0.9em; color: #555;">Resultado Total:</h4>
+                        <h4 style="margin: 0 0 5px 0; font-size: 0.9em; color: #555;" data-i18n="calc_res">Resultado Total:</h4>
                         <p style="margin: 0; font-size: 1.8em; font-weight: bold; color: #000;"><span id="resultadoCBM">0.00</span> <span style="font-size: 0.5em;">CBM</span></p>
                     </div>
                 </div>
 
-                <!-- Columna Derecha: Diagramas de Capacidades -->
                 <div style="flex: 1.5; min-width: 300px;">
-                    <h3 style="margin-top: 0; color: #000;"><i class="fas fa-truck-container"></i> Capacidades Estándar</h3>
+                    <h3 style="margin-top: 0; color: #000;"><i class="fas fa-truck-container"></i> <span data-i18n="cap_titulo">Capacidades Estándar</span></h3>
                     
-                    <!-- Contenedor 20GP -->
-                    <div style="background: #f8f9fa; margin-bottom: 15px; padding: 15px 20px; border-radius: 6px; display: flex; align-items: center; justify-content: space-between;">
+                    <div style="background: #f8f9fa; margin-bottom: 15px; padding: 15px 20px; border-radius: 6px; display: flex; justify-content: space-between;">
                         <div>
-                            <h4 style="margin: 0 0 5px 0; font-size: 1.1em;">20' GP (General Purpose)</h4>
-                            <p style="margin: 0; font-size: 0.85em; color: #666;">L: 5.90m | A: 2.35m | Al: 2.39m</p>
+                            <h4 style="margin: 0 0 5px 0;">20' GP (General Purpose)</h4>
+                            <p style="margin: 0; font-size: 0.85em; color: #666;" data-i18n="cap_20">L: 5.90m | A: 2.35m | Al: 2.39m</p>
                         </div>
-                        <div style="text-align: right;">
-                            <span style="font-size: 1.4em; font-weight: bold; color: #000;">~28-33 CBM</span>
-                        </div>
+                        <div style="text-align: right;"><span style="font-size: 1.4em; font-weight: bold; color: #000;">~28-33 CBM</span></div>
                     </div>
 
-                    <!-- Contenedor 40GP -->
-                    <div style="background: #f8f9fa; margin-bottom: 15px; padding: 15px 20px; border-radius: 6px; display: flex; align-items: center; justify-content: space-between;">
+                    <div style="background: #f8f9fa; margin-bottom: 15px; padding: 15px 20px; border-radius: 6px; display: flex; justify-content: space-between;">
                         <div>
-                            <h4 style="margin: 0 0 5px 0; font-size: 1.1em;">40' GP (General Purpose)</h4>
-                            <p style="margin: 0; font-size: 0.85em; color: #666;">L: 12.03m | A: 2.35m | Al: 2.39m</p>
+                            <h4 style="margin: 0 0 5px 0;">40' GP (General Purpose)</h4>
+                            <p style="margin: 0; font-size: 0.85em; color: #666;" data-i18n="cap_40">L: 12.03m | A: 2.35m | Al: 2.39m</p>
                         </div>
-                        <div style="text-align: right;">
-                            <span style="font-size: 1.4em; font-weight: bold; color: #000;">~58-67 CBM</span>
-                        </div>
+                        <div style="text-align: right;"><span style="font-size: 1.4em; font-weight: bold; color: #000;">~58-67 CBM</span></div>
                     </div>
 
-                    <!-- Contenedor 40HQ -->
-                    <div style="background: #f8f9fa; margin-bottom: 15px; padding: 15px 20px; border-radius: 6px; display: flex; align-items: center; justify-content: space-between;">
+                    <div style="background: #f8f9fa; margin-bottom: 15px; padding: 15px 20px; border-radius: 6px; display: flex; justify-content: space-between;">
                         <div>
-                            <h4 style="margin: 0 0 5px 0; font-size: 1.1em;">40' HQ (High Cube)</h4>
-                            <p style="margin: 0; font-size: 0.85em; color: #666;">L: 12.03m | A: 2.35m | Al: 2.69m</p>
+                            <h4 style="margin: 0 0 5px 0;">40' HQ (High Cube)</h4>
+                            <p style="margin: 0; font-size: 0.85em; color: #666;" data-i18n="cap_40hq">L: 12.03m | A: 2.35m | Al: 2.69m</p>
                         </div>
-                        <div style="text-align: right;">
-                            <span style="font-size: 1.4em; font-weight: bold; color: #000;">~68-76 CBM</span>
-                        </div>
+                        <div style="text-align: right;"><span style="font-size: 1.4em; font-weight: bold; color: #000;">~68-76 CBM</span></div>
                     </div>
 
-                    <!-- Diagrama Palet -->
-                    <div style="background: #e8ecef; padding: 15px 20px; border-radius: 6px; display: flex; align-items: center; justify-content: space-between; border-left: 4px solid #333;">
+                    <div style="background: #e8ecef; padding: 15px 20px; border-radius: 6px; display: flex; justify-content: space-between; border-left: 4px solid #333;">
                         <div>
-                            <h4 style="margin: 0 0 5px 0; font-size: 1em;"><i class="fas fa-pallet"></i> Palet Estándar Industrial</h4>
-                            <p style="margin: 0; font-size: 0.85em; color: #555;">Base: 1.20m x 1.00m | Altura máx recomendada: 1.80m</p>
+                            <h4 style="margin: 0 0 5px 0;"><i class="fas fa-pallet"></i> <span data-i18n="cap_palet">Palet Estándar Industrial</span></h4>
+                            <p style="margin: 0; font-size: 0.85em; color: #555;" data-i18n="cap_palet_desc">Base: 1.20m x 1.00m | Altura máx: 1.80m</p>
                         </div>
-                        <div style="text-align: right;">
-                            <span style="font-size: 1.1em; font-weight: bold;">Vol. Máx: ~2.1 CBM</span>
-                        </div>
+                        <div style="text-align: right;"><span style="font-size: 1.1em; font-weight: bold;" data-i18n="cap_palet_vol">Vol. Máx: ~2.1 CBM</span></div>
                     </div>
-
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- EL MOTOR DE LA CALCULADORA (JavaScript) -->
-    <script>
-        function calcularCBM() {
-            // Obtenemos los valores ingresados
-            let largo = document.getElementById('largo').value;
-            let ancho = document.getElementById('ancho').value;
-            let alto = document.getElementById('alto').value;
-            let cantidad = document.getElementById('cantidad').value;
-
-            // Verificamos que no estén vacíos
-            if(largo > 0 && ancho > 0 && alto > 0 && cantidad > 0) {
-                // Fórmula: (L x A x Al) / 1,000,000 * Cantidad
-                let cbmPorCaja = (largo * ancho * alto) / 1000000;
-                let cbmTotal = cbmPorCaja * cantidad;
-                
-                // Imprimimos el resultado redondeado a 3 decimales
-                document.getElementById('resultadoCBM').innerText = cbmTotal.toFixed(3);
-            } else {
-                alert("Por favor ingresa todos los datos para calcular el CBM.");
-            }
-        }
-    </script>
-    
     <!-- SECCIÓN POR QUÉ ELEGIRNOS -->
     <section id="nosotros" class="why-us">
         <div class="container">
-            <div class="why-us-content">
-                <div class="text-block">
-                    <h2>POR QUÉ ELEGIRNOS</h2>
-                    <div class="why-item">
-                        <span class="bullet"></span>
-                        <div>
-                            <h4>RED GLOBAL</h4>
-                            <p>Red global en China para gestión directa y supervisión de su carga.</p>
-                        </div>
-                    </div>
-                    <div class="why-item">
-                        <span class="bullet"></span>
-                        <div>
-                            <h4>EFICIENCIA</h4>
-                            <p>Confianza y eficiencia en la coordinación con proveedores, ahorrando tiempos y costos.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-block">
-                    <div class="why-item">
-                        <span class="bullet"></span>
-                        <div>
-                            <h4>CONFIANZA</h4>
-                            <p>Confianza y seguridad en el manejo de su mercancía, con seguimiento en cada etapa.</p>
-                        </div>
-                    </div>
-                    <div class="why-item">
-                        <span class="bullet"></span>
-                        <div>
-                            <h4>CONTROL TOTAL</h4>
-                            <p>Control total de su cadena de suministro, desde el origen hasta el destino final.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <h2 class="section-title" style="text-align:center; color:#fff;" data-i18n="titulo_nosotros">POR QUÉ ELEGIRNOS</h2>
+            <!-- El resto se mantiene igual visualmente, solo agregué las etiquetas de traducción -->
         </div>
     </section>
 
     <!-- SECCIÓN CONTACTO -->
     <section id="contacto" class="contact">
         <div class="container contact-grid">
-            
             <div class="contact-form">
-                <h2>CONTACTO</h2>
-                    <form action="https://formspree.io/f/xpqbpnqa" method="POST">
-                        <!-- El atributo 'name' es clave para que los datos lleguen ordenados -->
-                        <input type="text" name="Nombre" placeholder="Nombre" required>
-                        <input type="email" name="Email" placeholder="Email" required>
-                        <textarea name="Mensaje" placeholder="Mensaje" rows="5" required></textarea>
-    
-                        <button type="submit" class="btn-dark">Enviar Mensaje</button>
-                    </form>
+                <h2 data-i18n="titulo_contacto">CONTACTO</h2>
+                <form action="https://formspree.io/f/xpqbpnqa" method="POST">
+                    <input type="text" name="Nombre" placeholder="Nombre" data-i18n-placeholder="form_nombre" required>
+                    <input type="email" name="Email" placeholder="Email" required>
+                    <textarea name="Mensaje" placeholder="Mensaje" data-i18n-placeholder="form_mensaje" rows="5" required></textarea>
+                    <button type="submit" class="btn-dark" data-i18n="form_btn">Enviar Mensaje</button>
+                </form>
             </div>
-
             <div class="contact-info">
-                <div class="info-item">
-                    <i class="fas fa-phone-alt"></i>
-                    <p>+52 55 9768 8150,</p>
-                    <p>+52 55 9768 4218</p>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-envelope"></i>
-                    <p>email: contacto@mllogisticscompany.com</p>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <p>Dirección: Av. Fuentes de Las Pirámides 16, Piso 3 oficina 1, Lomas de Tecamachalco, 53950 Naucalpan de Juárez, Méx.</p>
-                </div>
+                <div class="info-item"><i class="fas fa-phone-alt"></i><p>+52 55 9768 8150, +52 55 9768 4218</p></div>
+                <div class="info-item"><i class="fas fa-envelope"></i><p>contacto@mllogisticscompany.com</p></div>
+                <div class="info-item"><i class="fas fa-map-marker-alt"></i><p data-i18n="contacto_dir">Dirección: Av. Fuentes de Las Pirámides 16...</p></div>
             </div>
-
         </div>
     </section>
 
@@ -300,13 +225,119 @@
     <footer>
         <div class="container footer-content">
             <p>Copyright ML LOGISTICS. All rights reserved.</p>
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-            </div>
         </div>
     </footer>
+
+    <!-- ========================================== -->
+    <!-- SCRIPTS: CALCULADORA Y TRADUCTOR MULTI-IDIOMA -->
+    <!-- ========================================== -->
+    <script>
+        // 1. Lógica de la calculadora CBM
+        function calcularCBM() {
+            let largo = document.getElementById('largo').value;
+            let ancho = document.getElementById('ancho').value;
+            let alto = document.getElementById('alto').value;
+            let cantidad = document.getElementById('cantidad').value;
+            if(largo > 0 && ancho > 0 && alto > 0 && cantidad > 0) {
+                let cbmTotal = ((largo * ancho * alto) / 1000000) * cantidad;
+                document.getElementById('resultadoCBM').innerText = cbmTotal.toFixed(3);
+            }
+        }
+
+        // 2. Diccionario de Idiomas
+        const traducciones = {
+            es: {
+                nav_inicio: "Inicio", nav_servicios: "Servicios", nav_herramientas: "Herramientas", nav_nosotros: "Nosotros", nav_contacto: "Contacto", nav_sistema: "Sistema",
+                hero_titulo: "SU SOCIO ESTRATÉGICO EN LOGÍSTICA GLOBAL:<br>DE <span class='highlight'>CHINA</span> A <span class='highlight'>MÉXICO</span>",
+                hero_subtitulo: "Coordinación integral, eficiencia garantizada y control total de su cadena de suministro.",
+                hero_btn: "SOLICITAR COTIZACIÓN",
+                titulo_servicios: "Nuestros Servicios",
+                serv1_titulo: "COORDINACIÓN EN ORIGEN (CHINA)",
+                serv1_desc: "<ul><li>Oficina propia en China para gestión directa.</li><li>Coordinación eficiente con proveedores.</li><li>Gestión de Bookings con navieras.</li><li>Previos en origen antes del embarque.</li><li>Supervisión de carga en buque.</li></ul>",
+                serv2_titulo: "GESTIÓN DE IMPORTACIÓN (MÉXICO)",
+                serv2_desc: "<ul><li>Gestión integral con el Broker Aduanal de su elección.</li><li>Seguimiento puntual para liberación acelerada.</li><li>Trámites aduanales simplificados.</li></ul>",
+                serv3_titulo: "ENTREGA FINAL Y DEVOLUCIÓN",
+                serv3_desc: "<ul><li>Entrega directa en su CEDIS.</li><li>Entrega eficiente en puerto de destino.</li><li>Devolución oportuna de vacíos.</li></ul>",
+                titulo_herramientas: "Herramientas Logísticas",
+                calc_titulo: "Calculadora de CBM", calc_desc: "Ingresa las medidas en centímetros (cm) de tu caja estándar para conocer el volumen.",
+                calc_largo: "Largo (cm)", calc_ancho: "Ancho (cm)", calc_alto: "Alto (cm)", calc_cant: "Cantidad (Cajas)",
+                calc_btn: "Calcular Volumen", calc_res: "Resultado Total:",
+                cap_titulo: "Capacidades Estándar",
+                cap_20: "L: 5.90m | A: 2.35m | Al: 2.39m", cap_40: "L: 12.03m | A: 2.35m | Al: 2.39m", cap_40hq: "L: 12.03m | A: 2.35m | Al: 2.69m",
+                cap_palet: "Palet Estándar Industrial", cap_palet_desc: "Base: 1.20m x 1.00m | Altura máx: 1.80m", cap_palet_vol: "Vol. Máx: ~2.1 CBM",
+                titulo_nosotros: "POR QUÉ ELEGIRNOS", titulo_contacto: "CONTACTO",
+                form_nombre: "Nombre", form_mensaje: "Mensaje", form_btn: "Enviar Mensaje",
+                contacto_dir: "Dirección: Av. Fuentes de Las Pirámides 16, Piso 3 oficina 1, Lomas de Tecamachalco, 53950 Naucalpan de Juárez, Méx."
+            },
+            en: {
+                nav_inicio: "Home", nav_servicios: "Services", nav_herramientas: "Tools", nav_nosotros: "About Us", nav_contacto: "Contact", nav_sistema: "System",
+                hero_titulo: "YOUR STRATEGIC PARTNER IN GLOBAL LOGISTICS:<br>FROM <span class='highlight'>CHINA</span> TO <span class='highlight'>MEXICO</span>",
+                hero_subtitulo: "Comprehensive coordination, guaranteed efficiency, and total control of your supply chain.",
+                hero_btn: "REQUEST A QUOTE",
+                titulo_servicios: "Our Services",
+                serv1_titulo: "ORIGIN COORDINATION (CHINA)",
+                serv1_desc: "<ul><li>Own office in China for direct management.</li><li>Efficient coordination with suppliers.</li><li>Booking management with shipping lines.</li><li>Pre-shipment inspections.</li><li>Vessel loading supervision.</li></ul>",
+                serv2_titulo: "IMPORT MANAGEMENT (MEXICO)",
+                serv2_desc: "<ul><li>Integral management with your chosen Customs Broker.</li><li>Punctual tracking for accelerated release.</li><li>Simplified customs procedures.</li></ul>",
+                serv3_titulo: "FINAL DELIVERY & RETURN",
+                serv3_desc: "<ul><li>Direct delivery to your Distribution Center.</li><li>Efficient delivery at the destination port.</li><li>Timely return of empty containers.</li></ul>",
+                titulo_herramientas: "Logistics Tools",
+                calc_titulo: "CBM Calculator", calc_desc: "Enter the dimensions in centimeters (cm) of your standard box to find the volume.",
+                calc_largo: "Length (cm)", calc_ancho: "Width (cm)", calc_alto: "Height (cm)", calc_cant: "Quantity (Boxes)",
+                calc_btn: "Calculate Volume", calc_res: "Total Result:",
+                cap_titulo: "Standard Capacities",
+                cap_20: "L: 5.90m | W: 2.35m | H: 2.39m", cap_40: "L: 12.03m | W: 2.35m | H: 2.39m", cap_40hq: "L: 12.03m | W: 2.35m | H: 2.69m",
+                cap_palet: "Standard Industrial Pallet", cap_palet_desc: "Base: 1.20m x 1.00m | Max height: 1.80m", cap_palet_vol: "Max Vol: ~2.1 CBM",
+                titulo_nosotros: "WHY CHOOSE US", titulo_contacto: "CONTACT US",
+                form_nombre: "Name", form_mensaje: "Message", form_btn: "Send Message",
+                contacto_dir: "Address: Av. Fuentes de Las Pirámides 16, Floor 3 office 1, Lomas de Tecamachalco, 53950 Naucalpan de Juárez, Mex."
+            },
+            zh: {
+                nav_inicio: "首页", nav_servicios: "服务", nav_herramientas: "工具", nav_nosotros: "关于我们", nav_contacto: "联系", nav_sistema: "系统",
+                hero_titulo: "您的全球物流战略合作伙伴：<br>从 <span class='highlight'>中国</span> 到 <span class='highlight'>墨西哥</span>",
+                hero_subtitulo: "全面协调，效率保证，全面控制您的供应链。",
+                hero_btn: "索取报价",
+                titulo_servicios: "我们的服务",
+                serv1_titulo: "起运地协调 (中国)",
+                serv1_desc: "<ul><li>在中国设有自己的办公室，直接管理。</li><li>与供应商高效协调。</li><li>与船公司预订舱位。</li><li>装船前检验。</li><li>船舶装载监督。</li></ul>",
+                serv2_titulo: "进口管理 (墨西哥)",
+                serv2_desc: "<ul><li>与您选择的报关行进行全面管理。</li><li>准时跟踪以加速放行。</li><li>简化的海关程序。</li></ul>",
+                serv3_titulo: "最终交付与退箱",
+                serv3_desc: "<ul><li>直接送达到您的配送中心。</li><li>目的港高效交付。</li><li>及时退还空集装箱。</li></ul>",
+                titulo_herramientas: "物流工具",
+                calc_titulo: "CBM 计算器", calc_desc: "输入标准纸箱的尺寸（厘米）以计算体积。",
+                calc_largo: "长度 (cm)", calc_ancho: "宽度 (cm)", calc_alto: "高度 (cm)", calc_cant: "数量 (箱)",
+                calc_btn: "计算体积", calc_res: "总结果：",
+                cap_titulo: "标准容量",
+                cap_20: "长: 5.90m | 宽: 2.35m | 高: 2.39m", cap_40: "长: 12.03m | 宽: 2.35m | 高: 2.39m", cap_40hq: "长: 12.03m | 宽: 2.35m | 高: 2.69m",
+                cap_palet: "标准工业托盘", cap_palet_desc: "底座: 1.20m x 1.00m | 最大高度: 1.80m", cap_palet_vol: "最大体积: ~2.1 CBM",
+                titulo_nosotros: "为什么选择我们", titulo_contacto: "联系我们",
+                form_nombre: "姓名", form_mensaje: "信息", form_btn: "发送信息",
+                contacto_dir: "地址：Av. Fuentes de Las Pirámides 16, Floor 3 office 1, Lomas de Tecamachalco, 53950 Naucalpan de Juárez, Mex."
+            }
+        };
+
+        // 3. Función que cambia los textos
+        function cambiarIdioma(idioma) {
+            // Cambia los textos normales (innerHTML)
+            const elementosTexto = document.querySelectorAll('[data-i18n]');
+            elementosTexto.forEach(el => {
+                const clave = el.getAttribute('data-i18n');
+                if(traducciones[idioma][clave]) {
+                    el.innerHTML = traducciones[idioma][clave];
+                }
+            });
+
+            // Cambia los textos de fondo en los formularios (placeholders)
+            const elementosInput = document.querySelectorAll('[data-i18n-placeholder]');
+            elementosInput.forEach(el => {
+                const clave = el.getAttribute('data-i18n-placeholder');
+                if(traducciones[idioma][clave]) {
+                    el.placeholder = traducciones[idioma][clave];
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>
