@@ -154,43 +154,47 @@
                     </div>
                 </div>
 
+                <!-- Columna Derecha: Diagramas de Capacidades -->
                 <div style="flex: 1.5; min-width: 300px;">
                     <h3 style="margin-top: 0; color: #000;"><i class="fas fa-truck-container"></i> <span data-i18n="cap_titulo">Capacidades Estándar</span></h3>
                     
-                    <div style="background: #f8f9fa; margin-bottom: 15px; padding: 15px 20px; border-radius: 6px; display: flex; justify-content: space-between;">
+                    <div style="background: #f8f9fa; margin-bottom: 15px; padding: 15px 20px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;">
                         <div>
                             <h4 style="margin: 0 0 5px 0;">20' GP (General Purpose)</h4>
                             <p style="margin: 0; font-size: 0.85em; color: #666;" data-i18n="cap_20">L: 5.90m | A: 2.35m | Al: 2.39m</p>
+                            <p style="margin: 3px 0 0 0; font-size: 0.8em; color: #000; font-weight: bold;" data-i18n="cap_20_peso">Tara: 2,200 kg | Carga Máx (Neto): 28,280 kg</p>
                         </div>
                         <div style="text-align: right;"><span style="font-size: 1.4em; font-weight: bold; color: #000;">~28-33 CBM</span></div>
                     </div>
 
-                    <div style="background: #f8f9fa; margin-bottom: 15px; padding: 15px 20px; border-radius: 6px; display: flex; justify-content: space-between;">
+                    <div style="background: #f8f9fa; margin-bottom: 15px; padding: 15px 20px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;">
                         <div>
                             <h4 style="margin: 0 0 5px 0;">40' GP (General Purpose)</h4>
                             <p style="margin: 0; font-size: 0.85em; color: #666;" data-i18n="cap_40">L: 12.03m | A: 2.35m | Al: 2.39m</p>
+                            <p style="margin: 3px 0 0 0; font-size: 0.8em; color: #000; font-weight: bold;" data-i18n="cap_40_peso">Tara: 3,720 kg | Carga Máx (Neto): 26,760 kg</p>
                         </div>
                         <div style="text-align: right;"><span style="font-size: 1.4em; font-weight: bold; color: #000;">~58-67 CBM</span></div>
                     </div>
 
-                    <div style="background: #f8f9fa; margin-bottom: 15px; padding: 15px 20px; border-radius: 6px; display: flex; justify-content: space-between;">
+                    <div style="background: #f8f9fa; margin-bottom: 15px; padding: 15px 20px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;">
                         <div>
                             <h4 style="margin: 0 0 5px 0;">40' HQ (High Cube)</h4>
                             <p style="margin: 0; font-size: 0.85em; color: #666;" data-i18n="cap_40hq">L: 12.03m | A: 2.35m | Al: 2.69m</p>
+                            <p style="margin: 3px 0 0 0; font-size: 0.8em; color: #000; font-weight: bold;" data-i18n="cap_40hq_peso">Tara: 3,900 kg | Carga Máx (Neto): 26,580 kg</p>
                         </div>
                         <div style="text-align: right;"><span style="font-size: 1.4em; font-weight: bold; color: #000;">~68-76 CBM</span></div>
                     </div>
 
-                    <div style="background: #e8ecef; padding: 15px 20px; border-radius: 6px; display: flex; justify-content: space-between; border-left: 4px solid #333;">
+                    <div style="background: #e8ecef; padding: 15px 20px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #000;">
                         <div>
                             <h4 style="margin: 0 0 5px 0;"><i class="fas fa-pallet"></i> <span data-i18n="cap_palet">Palet Estándar Industrial</span></h4>
                             <p style="margin: 0; font-size: 0.85em; color: #555;" data-i18n="cap_palet_desc">Base: 1.20m x 1.00m | Altura máx: 1.80m</p>
+                            <p style="margin: 3px 0 0 0; font-size: 0.8em; color: #000; font-weight: bold;" data-i18n="cap_palet_peso">Tara: ~15-25 kg | Carga Máx: ~1,000 kg</p>
                         </div>
                         <div style="text-align: right;"><span style="font-size: 1.1em; font-weight: bold;" data-i18n="cap_palet_vol">Vol. Máx: ~2.1 CBM</span></div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 
 <!-- SECCIÓN POR QUÉ ELEGIRNOS -->
@@ -290,7 +294,7 @@
             }
         }
 
-        // 2. Diccionario de Idiomas
+        // 2. Diccionario de Idiomas ACTUALIZADO CON PESOS
         const traducciones = {
             es: {
                 nav_inicio: "Inicio", nav_servicios: "Servicios", nav_herramientas: "Herramientas", nav_nosotros: "Nosotros", nav_contacto: "Contacto", nav_sistema: "Sistema",
@@ -309,9 +313,21 @@
                 calc_largo: "Largo (cm)", calc_ancho: "Ancho (cm)", calc_alto: "Alto (cm)", calc_cant: "Cantidad (Cajas)",
                 calc_btn: "Calcular Volumen", calc_res: "Resultado Total:",
                 cap_titulo: "Capacidades Estándar",
-                cap_20: "L: 5.90m | A: 2.35m | Al: 2.39m", cap_40: "L: 12.03m | A: 2.35m | Al: 2.39m", cap_40hq: "L: 12.03m | A: 2.35m | Al: 2.69m",
-                cap_palet: "Palet Estándar Industrial", cap_palet_desc: "Base: 1.20m x 1.00m | Altura máx: 1.80m", cap_palet_vol: "Vol. Máx: ~2.1 CBM",
-                titulo_nosotros: "POR QUÉ ELEGIRNOS", titulo_contacto: "CONTACTO",
+                cap_20: "L: 5.90m | A: 2.35m | Al: 2.39m", 
+                cap_20_peso: "Tara: 2,200 kg | Carga Máx (Neto): 28,280 kg",
+                cap_40: "L: 12.03m | A: 2.35m | Al: 2.39m", 
+                cap_40_peso: "Tara: 3,720 kg | Carga Máx (Neto): 26,760 kg",
+                cap_40hq: "L: 12.03m | A: 2.35m | Al: 2.69m", 
+                cap_40hq_peso: "Tara: 3,900 kg | Carga Máx (Neto): 26,580 kg",
+                cap_palet: "Palet Estándar Industrial", cap_palet_desc: "Base: 1.20m x 1.00m | Altura máx: 1.80m", 
+                cap_palet_peso: "Tara: ~15-25 kg | Carga Máx: ~1,000 kg", cap_palet_vol: "Vol. Máx: ~2.1 CBM",
+                titulo_nosotros: "POR QUÉ ELEGIRNOS", 
+                why1_titulo: "RED GLOBAL", why1_desc: "Red global en China para gestión directa y supervisión de su carga.",
+                why2_titulo: "EFICIENCIA", why2_desc: "Confianza y eficiencia en la coordinación con proveedores, ahorrando tiempos y costos.",
+                why3_titulo: "CONFIANZA", why3_desc: "Confianza y seguridad en el manejo de su mercancía, con seguimiento en cada etapa.",
+                why4_titulo: "CONTROL TOTAL", why4_desc: "Control total de su cadena de suministro, desde el origen hasta el destino final.",
+                why5_titulo: "EXPERIENCIA", why5_desc: "Contamos con más de 20 años de experiencia en el sector logístico internacional.",
+                titulo_contacto: "CONTACTO",
                 form_nombre: "Nombre", form_mensaje: "Mensaje", form_btn: "Enviar Mensaje",
                 contacto_dir: "Dirección: Av. Fuentes de Las Pirámides 16, Piso 3 oficina 1, Lomas de Tecamachalco, 53950 Naucalpan de Juárez, Méx."
             },
@@ -332,9 +348,21 @@
                 calc_largo: "Length (cm)", calc_ancho: "Width (cm)", calc_alto: "Height (cm)", calc_cant: "Quantity (Boxes)",
                 calc_btn: "Calculate Volume", calc_res: "Total Result:",
                 cap_titulo: "Standard Capacities",
-                cap_20: "L: 5.90m | W: 2.35m | H: 2.39m", cap_40: "L: 12.03m | W: 2.35m | H: 2.39m", cap_40hq: "L: 12.03m | W: 2.35m | H: 2.69m",
-                cap_palet: "Standard Industrial Pallet", cap_palet_desc: "Base: 1.20m x 1.00m | Max height: 1.80m", cap_palet_vol: "Max Vol: ~2.1 CBM",
-                titulo_nosotros: "WHY CHOOSE US", titulo_contacto: "CONTACT US",
+                cap_20: "L: 5.90m | W: 2.35m | H: 2.39m", 
+                cap_20_peso: "Tare: 2,200 kg | Max Payload (Net): 28,280 kg",
+                cap_40: "L: 12.03m | W: 2.35m | H: 2.39m", 
+                cap_40_peso: "Tare: 3,720 kg | Max Payload (Net): 26,760 kg",
+                cap_40hq: "L: 12.03m | W: 2.35m | H: 2.69m", 
+                cap_40hq_peso: "Tare: 3,900 kg | Max Payload (Net): 26,580 kg",
+                cap_palet: "Standard Industrial Pallet", cap_palet_desc: "Base: 1.20m x 1.00m | Max height: 1.80m", 
+                cap_palet_peso: "Tare: ~15-25 kg | Max Payload: ~1,000 kg", cap_palet_vol: "Max Vol: ~2.1 CBM",
+                titulo_nosotros: "WHY CHOOSE US", 
+                why1_titulo: "GLOBAL NETWORK", why1_desc: "Global network in China for direct management and supervision of your cargo.",
+                why2_titulo: "EFFICIENCY", why2_desc: "Trust and efficiency in coordinating with suppliers, saving time and costs.",
+                why3_titulo: "TRUST", why3_desc: "Trust and security in handling your merchandise, with tracking at every stage.",
+                why4_titulo: "TOTAL CONTROL", why4_desc: "Total control of your supply chain, from origin to final destination.",
+                why5_titulo: "EXPERIENCE", why5_desc: "We have over 20 years of experience in the international logistics sector.",
+                titulo_contacto: "CONTACT US",
                 form_nombre: "Name", form_mensaje: "Message", form_btn: "Send Message",
                 contacto_dir: "Address: Av. Fuentes de Las Pirámides 16, Floor 3 office 1, Lomas de Tecamachalco, 53950 Naucalpan de Juárez, Mex."
             },
@@ -355,34 +383,25 @@
                 calc_largo: "长度 (cm)", calc_ancho: "宽度 (cm)", calc_alto: "高度 (cm)", calc_cant: "数量 (箱)",
                 calc_btn: "计算体积", calc_res: "总结果：",
                 cap_titulo: "标准容量",
-                cap_20: "长: 5.90m | 宽: 2.35m | 高: 2.39m", cap_40: "长: 12.03m | 宽: 2.35m | 高: 2.39m", cap_40hq: "长: 12.03m | 宽: 2.35m | 高: 2.69m",
-                cap_palet: "标准工业托盘", cap_palet_desc: "底座: 1.20m x 1.00m | 最大高度: 1.80m", cap_palet_vol: "最大体积: ~2.1 CBM",
-                titulo_nosotros: "为什么选择我们", titulo_contacto: "联系我们",
+                cap_20: "长: 5.90m | 宽: 2.35m | 高: 2.39m", 
+                cap_20_peso: "皮重: 2,200 kg | 最大载重 (净重): 28,280 kg",
+                cap_40: "长: 12.03m | 宽: 2.35m | 高: 2.39m", 
+                cap_40_peso: "皮重: 3,720 kg | 最大载重 (净重): 26,760 kg",
+                cap_40hq: "长: 12.03m | 宽: 2.35m | 高: 2.69m", 
+                cap_40hq_peso: "皮重: 3,900 kg | 最大载重 (净重): 26,580 kg",
+                cap_palet: "标准工业托盘", cap_palet_desc: "底座: 1.20m x 1.00m | 最大高度: 1.80m", 
+                cap_palet_peso: "皮重: ~15-25 kg | 最大载重: ~1,000 kg", cap_palet_vol: "最大体积: ~2.1 CBM",
+                titulo_nosotros: "为什么选择我们", 
+                why1_titulo: "全球网络", why1_desc: "在中国的全球网络，直接管理和监督您的货物。",
+                why2_titulo: "高效", why2_desc: "与供应商协调的信任和效率，节省时间和成本。",
+                why3_titulo: "信任", why3_desc: "处理您货物的信任和安全，每个阶段都有跟踪。",
+                why4_titulo: "全面控制", why4_desc: "全面控制您的供应链，从起点到最终目的地。",
+                why5_titulo: "经验", why5_desc: "我们在国际物流领域拥有超过20年的经验。",
+                titulo_contacto: "联系我们",
                 form_nombre: "姓名", form_mensaje: "信息", form_btn: "发送信息",
                 contacto_dir: "地址：Av. Fuentes de Las Pirámides 16, Floor 3 office 1, Lomas de Tecamachalco, 53950 Naucalpan de Juárez, Mex."
             }
-        };
-
-        // 3. Función que cambia los textos
-        function cambiarIdioma(idioma) {
-            // Cambia los textos normales (innerHTML)
-            const elementosTexto = document.querySelectorAll('[data-i18n]');
-            elementosTexto.forEach(el => {
-                const clave = el.getAttribute('data-i18n');
-                if(traducciones[idioma][clave]) {
-                    el.innerHTML = traducciones[idioma][clave];
-                }
-            });
-
-            // Cambia los textos de fondo en los formularios (placeholders)
-            const elementosInput = document.querySelectorAll('[data-i18n-placeholder]');
-            elementosInput.forEach(el => {
-                const clave = el.getAttribute('data-i18n-placeholder');
-                if(traducciones[idioma][clave]) {
-                    el.placeholder = traducciones[idioma][clave];
-                }
-            });
-        }
+        };        }
     </script>
 
 </body>
