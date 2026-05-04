@@ -1,0 +1,358 @@
+/* --- ESTILOS GENERALES --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    line-height: 1.6;
+    scroll-behavior: smooth;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Colores Corporativos */
+:root {
+    --gold: #EDBB2C; /* Tomado del logo */
+    --black: #000000;
+    --dark-grey: #1A1A1A;
+    --white: #FFFFFF;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: 0.3s;
+}
+
+ul {
+    list-style: none;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: var(--black);
+    color: var(--gold);
+    border: 2px solid var(--gold);
+    border-radius: 5px;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background-color: var(--gold);
+    color: var(--black);
+}
+
+.section-title {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+
+/* --- CABECERA --- */
+header {
+    background-color: var(--white);
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    height: 60px;
+}
+
+nav ul {
+    display: flex;
+    gap: 30px;
+}
+
+nav a {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+nav a:hover, nav a[href="#inicio"] {
+    color: var(--gold);
+}
+
+/* --- SECCIÓN HERO --- */
+.hero {
+    margin-top: 90px; /* Espacio para la cabecera fija */
+    height: 80vh;
+    background-image: url('https://images.unsplash.com/photo-1516939884455-1445c8652f83?q=80&w=1600'); /* Imagen de puerto professional */
+    background-size: cover;
+    background-position: center;
+    color: var(--white);
+    position: relative;
+}
+
+.hero-overlay {
+    background-color: rgba(0, 0, 0, 0.5); /* Superposición oscura */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    font-weight: 700;
+    color: var(--white);
+}
+
+.hero-content h1 .highlight {
+    color: var(--gold);
+}
+
+.hero-content p {
+    font-size: 20px;
+    margin-bottom: 40px;
+    font-weight: 300;
+}
+
+/* --- SECCIÓN SERVICIOS --- */
+.services {
+    padding: 100px 0;
+    background-color: var(--white);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.service-card {
+    background-color: var(--white);
+    padding: 40px;
+    border-radius: 10px;
+    border: 2px solid var(--gold);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    text-align: left;
+    transition: 0.3s;
+    position: relative;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.service-icon {
+    font-size: 40px;
+    color: var(--black);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.china-flag, .mexico-flag {
+    height: 30px;
+}
+
+.service-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--black);
+    text-transform: uppercase;
+}
+
+.service-card ul {
+    font-size: 14px;
+    list-style: disc;
+    margin-left: 20px;
+    color: #555;
+}
+
+.service-card ul li {
+    margin-bottom: 8px;
+}
+
+/* --- SECCIÓN POR QUÉ ELEGIRNOS --- */
+.why-us {
+    padding: 80px 0;
+    background-color: #F9F9F9;
+}
+
+.why-us-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+}
+
+.why-us h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+}
+
+.why-item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.bullet {
+    width: 15px;
+    height: 15px;
+    background-color: var(--gold);
+    border-radius: 50%;
+    margin-top: 5px;
+    flex-shrink: 0;
+}
+
+.why-item h4 {
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: var(--black);
+}
+
+.why-item p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* --- SECCIÓN CONTACTO --- */
+.contact {
+    padding: 100px 0;
+    background-color: var(--white);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.contact-form h2 {
+    font-size: 36px;
+    margin-bottom: 30px;
+}
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-form input, .contact-form textarea {
+    padding: 15px;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn-dark {
+    padding: 12px 30px;
+    background-color: var(--black);
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    width: fit-content;
+}
+
+.btn-dark:hover {
+    background-color: var(--gold);
+    color: var(--black);
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    font-weight: 600;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 16px;
+}
+
+.info-item i {
+    font-size: 20px;
+    color: var(--black);
+}
+
+/* --- PIE DE PÁGINA --- */
+footer {
+    background-color: var(--dark-grey);
+    color: var(--white);
+    padding: 30px 0;
+    font-size: 14px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.social-icons {
+    display: flex;
+    gap: 20px;
+    font-size: 18px;
+}
+
+.social-icons a:hover {
+    color: var(--gold);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 992px) {
+    .hero-content h1 {
+        font-size: 36px;
+    }
+    .why-us-content, .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+    .hero-content h1 {
+        font-size: 28px;
+    }
+    .section-title {
+        font-size: 28px;
+    }
+}
