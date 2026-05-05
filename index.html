@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ML Logistics - Su Socio Estratégico Global</title>
+    <meta name="description" content="ML Logistics - Tu socio estratégico en logística global de China a México.">
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
     <!-- Importación de fuente profesional y FontAwesome -->
@@ -48,7 +49,7 @@
                     <li><a href="#contacto" data-i18n="nav_contacto">Contacto</a></li>
                     <li><a href="https://moylogistics.lynqro.com/" target="_blank" style="font-weight: bold; color: #000;" data-i18n="nav_sistema">Sistema</a></li>
                 </ul>
-                <select class="lang-select" onchange="cambiarIdioma(this.value)">
+                <select class="lang-select" aria-label="Seleccionar idioma" onchange="cambiarIdioma(this.value)">
                     <option value="es">🇪🇸 Español</option>
                     <option value="en">🇺🇸 English</option>
                     <option value="zh">🇨🇳 中文</option>
@@ -293,9 +294,9 @@
             <div class="contact-form">
                 <h2 data-i18n="titulo_contacto">CONTACTO</h2>
                 <form action="https://formspree.io/f/xpqbpnqa" method="POST">
-                    <input type="text" name="Nombre" placeholder="Nombre" data-i18n-placeholder="form_nombre" required>
-                    <input type="email" name="Email" placeholder="Email" required>
-                    <textarea name="Mensaje" placeholder="Mensaje" data-i18n-placeholder="form_mensaje" rows="5" required></textarea>
+                    <input type="text" name="Nombre" placeholder="Nombre" aria-label="Nombre" data-i18n-placeholder="form_nombre" required>
+                    <input type="email" name="Email" aria-label="Email" placeholder="Email" required>
+                    <textarea name="Mensaje" aria-label="Mensaje" placeholder="Mensaje" data-i18n-placeholder="form_mensaje" rows="5" required></textarea>
                     <button type="submit" class="btn-dark" data-i18n="form_btn">Enviar Mensaje</button>
                 </form>
             </div>
