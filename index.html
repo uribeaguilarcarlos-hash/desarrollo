@@ -10,6 +10,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     
+    <!-- LIBRERÍA DE MAPAS (LEAFLET) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     <style>
         .lang-select {
             background-color: transparent;
@@ -22,6 +26,11 @@
             margin-left: 15px;
         }
         .lang-select:focus { outline: none; border-color: #000; }
+        
+        /* Ajuste para que el mapa no se encime con menús flotantes */
+        #mapaRuta {
+            z-index: 1;
+        }
     </style>
 </head>
 <body>
@@ -122,11 +131,9 @@
             
             <div style="display: flex; flex-wrap: wrap; gap: 40px; justify-content: center;">
                 
-                <!-- Columna Izquierda: Calculadoras -->
+                <!-- Columna Izquierda: Calculadora CBM -->
                 <div style="flex: 1; min-width: 320px;">
-                    
-                    <!-- 1. Calculadora CBM -->
-                    <div style="background: #f8f9fa; padding: 30px; border-radius: 8px; border-top: 4px solid #000000; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 30px;">
+                    <div style="background: #f8f9fa; padding: 30px; border-radius: 8px; border-top: 4px solid #000000; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
                         <h3 style="margin-top: 0; color: #000;"><i class="fas fa-calculator"></i> <span data-i18n="calc_titulo">Calculadora de CBM</span></h3>
                         <p style="font-size: 0.9em; color: #555;" data-i18n="calc_desc">Ingresa las medidas en cm de tu caja para conocer el volumen.</p>
                         
@@ -156,59 +163,10 @@
                             <p style="margin: 0; font-size: 1.8em; font-weight: bold; color: #000;"><span id="resultadoCBM">0.00</span> <span style="font-size: 0.5em;">CBM</span></p>
                         </div>
                     </div>
-
-                    <!-- 2. Calculadora de Tiempos de Tránsito (Actualizada con Real Operativo) -->
-                    <div style="background: #f8f9fa; padding: 30px; border-radius: 8px; border-top: 4px solid #000000; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
-                        <h3 style="margin-top: 0; color: #000;"><i class="fas fa-clock"></i> <span data-i18n="tiempo_titulo">Tiempos de Tránsito</span></h3>
-                        <p style="font-size: 0.9em; color: #555;" data-i18n="tiempo_desc">Selecciona origen y destino para ver un estimado de días.</p>
-                        
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
-                            <div>
-                                <label style="font-size: 0.85em; font-weight: bold;" data-i18n="tiempo_pais_origen">País Origen</label>
-                                <select id="paisOrigen" onchange="actualizarPuertosOrigen()" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; margin-top: 5px;">
-                                    <option value="CHINA">CHINA</option>
-                                    <option value="INDIA">INDIA</option>
-                                    <option value="INDONESIA">INDONESIA</option>
-                                    <option value="VIETNAM">VIETNAM</option>
-                                </select>                            
-                            </div>
-                            <div>
-                                <label style="font-size: 0.85em; font-weight: bold;" data-i18n="tiempo_puerto_origen">Puerto Origen</label>
-                                <select id="puertoOrigen" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; margin-top: 5px;"></select>
-                            </div>
-                        </div>
-                        
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
-                            <div>
-                                <label style="font-size: 0.85em; font-weight: bold;" data-i18n="tiempo_pais_destino">País Destino</label>
-                                <select id="paisDestino" onchange="actualizarPuertosDestino()" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; margin-top: 5px;">
-                                    <option value="MÉXICO">MÉXICO</option>
-                                    <option value="US">US</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label style="font-size: 0.85em; font-weight: bold;" data-i18n="tiempo_puerto_destino">Puerto Destino</label>
-                                <select id="puertoDestino" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; margin-top: 5px;"></select>
-                            </div>
-                        </div>
-                        
-                        <button onclick="calcularTiempo()" style="width: 100%; background: #000; color: #fff; border: none; padding: 12px; border-radius: 4px; font-weight: bold; cursor: pointer;" data-i18n="tiempo_btn">Calcular Tiempo</button>
-                        
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
-                            <div style="background: #fff; padding: 15px; border-left: 4px solid #28a745;">
-                                <h4 style="margin: 0 0 5px 0; font-size: 0.8em; color: #555;" data-i18n="tiempo_estimado">Estimado Naviera:</h4>
-                                <p style="margin: 0; font-size: 1.3em; font-weight: bold; color: #000;"><span id="resEstimado">-</span> <span style="font-size: 0.6em;" data-i18n="tiempo_dias">Días</span></p>
-                            </div>
-                            <div style="background: #fff; padding: 15px; border-left: 4px solid #dc3545;">
-                                <h4 style="margin: 0 0 5px 0; font-size: 0.8em; color: #555;" data-i18n="tiempo_real">Real Operativo:</h4>
-                                <p style="margin: 0; font-size: 1.3em; font-weight: bold; color: #000;"><span id="resReal">-</span> <span style="font-size: 0.6em;" data-i18n="tiempo_dias">Días</span></p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Columna Derecha: Diagramas de Capacidades -->
-                <div style="flex: 1.5; min-width: 320px;">
+                <div style="flex: 1; min-width: 320px;">
                     <h3 style="margin-top: 0; color: #000;"><i class="fas fa-truck-container"></i> <span data-i18n="cap_titulo">Capacidades Estándar</span></h3>
                     
                     <div style="background: #f8f9fa; margin-bottom: 15px; padding: 15px 20px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center;">
@@ -248,6 +206,66 @@
                     </div>
                 </div>
             </div>
+
+            <!-- FILA COMPLETA: Calculadora de Tiempos + MAPA INTERACTIVO -->
+            <div style="margin-top: 40px; background: #f8f9fa; padding: 30px; border-radius: 8px; border-top: 4px solid #000000; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                <h3 style="margin-top: 0; color: #000;"><i class="fas fa-route"></i> <span data-i18n="tiempo_titulo">Tiempos de Tránsito y Rutas</span></h3>
+                <p style="font-size: 0.9em; color: #555; margin-bottom: 25px;" data-i18n="tiempo_desc">Selecciona origen y destino para ver un estimado de días y visualizar la ruta logística en el mapa.</p>
+                
+                <div style="display: flex; flex-wrap: wrap; gap: 30px;">
+                    <!-- Bloque Izquierdo: Selectores y Resultados -->
+                    <div style="flex: 1; min-width: 300px;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                            <div>
+                                <label style="font-size: 0.85em; font-weight: bold;" data-i18n="tiempo_pais_origen">País Origen</label>
+                                <select id="paisOrigen" onchange="actualizarPuertosOrigen(); calcularTiempo();" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; margin-top: 5px;">
+                                    <option value="CHINA">CHINA</option>
+                                    <option value="INDIA">INDIA</option>
+                                    <option value="INDONESIA">INDONESIA</option>
+                                    <option value="VIETNAM">VIETNAM</option>
+                                </select>                            
+                            </div>
+                            <div>
+                                <label style="font-size: 0.85em; font-weight: bold;" data-i18n="tiempo_puerto_origen">Puerto Origen</label>
+                                <select id="puertoOrigen" onchange="calcularTiempo();" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; margin-top: 5px;"></select>
+                            </div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                            <div>
+                                <label style="font-size: 0.85em; font-weight: bold;" data-i18n="tiempo_pais_destino">País Destino</label>
+                                <select id="paisDestino" onchange="actualizarPuertosDestino(); calcularTiempo();" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; margin-top: 5px;">
+                                    <option value="MÉXICO">MÉXICO</option>
+                                    <option value="US">US</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="font-size: 0.85em; font-weight: bold;" data-i18n="tiempo_puerto_destino">Puerto Destino</label>
+                                <select id="puertoDestino" onchange="calcularTiempo();" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; margin-top: 5px;"></select>
+                            </div>
+                        </div>
+                        
+                        <button onclick="calcularTiempo()" style="width: 100%; background: #000; color: #fff; border: none; padding: 12px; border-radius: 4px; font-weight: bold; cursor: pointer;" data-i18n="tiempo_btn">Calcular Tiempo</button>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+                            <div style="background: #fff; padding: 15px; border-left: 4px solid #28a745; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                                <h4 style="margin: 0 0 5px 0; font-size: 0.8em; color: #555;" data-i18n="tiempo_estimado">Estimado Naviera:</h4>
+                                <p style="margin: 0; font-size: 1.3em; font-weight: bold; color: #000;"><span id="resEstimado">-</span> <span style="font-size: 0.6em;" data-i18n="tiempo_dias">Días</span></p>
+                            </div>
+                            <div style="background: #fff; padding: 15px; border-left: 4px solid #dc3545; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                                <h4 style="margin: 0 0 5px 0; font-size: 0.8em; color: #555;" data-i18n="tiempo_real">Real Operativo:</h4>
+                                <p style="margin: 0; font-size: 1.3em; font-weight: bold; color: #000;"><span id="resReal">-</span> <span style="font-size: 0.6em;" data-i18n="tiempo_dias">Días</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bloque Derecho: Mapa Interactivo -->
+                    <div style="flex: 1.5; min-width: 300px;">
+                        <div id="mapaRuta" style="width: 100%; height: 100%; min-height: 350px; border-radius: 8px; border: 1px solid #ccc;"></div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -325,6 +343,29 @@
             'US': ['LONG BEACH', 'HOUSTON']
         };
 
+        // Coordenadas geográficas de los puertos [Latitud, Longitud]
+        const coordenadasPuertos = {
+            'SHENZHEN': [22.50, 113.88],
+            'SHANGHAI': [31.23, 121.47],
+            'NINGBO': [29.86, 121.54],
+            'QINGDAO': [36.06, 120.31],
+            'TIANJIN': [39.08, 117.20],
+            'XIAMEN': [24.47, 118.08],
+            'SHANTOU': [23.35, 116.67],
+            'NANJING': [32.06, 118.79],
+            'CHENNAI': [13.08, 80.27],
+            'NHAVA SHEVA': [18.94, 72.95],
+            'JAKARTA': [-6.12, 106.86],
+            'SURABAYA': [-7.20, 112.73],
+            'HOCHIMINH': [10.76, 106.66],
+            'HAIPHONG': [20.86, 106.68],
+            'LAZARO CARDENAS': [17.92, -102.18],
+            'MANZANILLO': [19.05, -104.31],
+            'PANTACO': [19.47, -99.17],
+            'LONG BEACH': [33.75, -118.21],
+            'HOUSTON': [29.76, -95.36]
+        };
+
         function actualizarPuertosOrigen() {
             const pais = document.getElementById('paisOrigen').value;
             const selectPuerto = document.getElementById('puertoOrigen');
@@ -349,21 +390,34 @@
             });
         }
 
-        // 3. Lógica de Tiempos de Tránsito (Actualizada para Naviera vs Real Operativo)
+        // 3. Lógica de Tiempos de Tránsito y MAPA
+        let mapaLogistico;
+        let capaRuta;
+
+        function inicializarMapa() {
+            // Estilo de mapa súper limpio y minimalista de CartoDB (Positron)
+            mapaLogistico = L.map('mapaRuta').setView([20, -150], 2);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap &copy; CARTO',
+                subdomains: 'abcd',
+                maxZoom: 19
+            }).addTo(mapaLogistico);
+        }
+
         function calcularTiempo() {
             const paisOrigen = document.getElementById('paisOrigen').value;
             const puertoDestino = document.getElementById('puertoDestino').value;
+            const puertoOrigen = document.getElementById('puertoOrigen').value;
 
-            // Días base: [Estimado Naviera, Real Operativo (con retrasos)]
+            // Días base
             const tiemposBase = {
                 'MANZANILLO': [21, 32],
                 'LAZARO CARDENAS': [22, 34],
-                'PANTACO': [26, 42], // Contemplando saturación de tren/autotransporte
+                'PANTACO': [26, 42],
                 'LONG BEACH': [16, 28],
                 'HOUSTON': [30, 45]
             };
 
-            // Días extra dependiendo de la distancia del país de origen
             const extraDiasOrigen = {
                 'CHINA': 0,
                 'VIETNAM': 4,
@@ -377,6 +431,43 @@
 
                 document.getElementById('resEstimado').innerText = estimadoNaviera;
                 document.getElementById('resReal').innerText = realOperativo;
+            }
+
+            // Actualizar Mapa
+            dibujarRutaEnMapa(puertoOrigen, puertoDestino);
+        }
+
+        function dibujarRutaEnMapa(origen, destino) {
+            if (capaRuta) {
+                mapaLogistico.removeLayer(capaRuta);
+            }
+
+            if (coordenadasPuertos[origen] && coordenadasPuertos[destino]) {
+                const coordOrigen = coordenadasPuertos[origen];
+                const coordDestino = coordenadasPuertos[destino];
+
+                // Truco para que la línea cruce el Pacífico y no el Atlántico
+                let lngDestino = coordDestino[1];
+                if (lngDestino < 0) { lngDestino += 360; }
+                const coordDestinoAjustada = [coordDestino[0], lngDestino];
+
+                // Marcadores
+                const markerOrigen = L.marker(coordOrigen).bindPopup("<b>Origen:</b> " + origen);
+                const markerDestino = L.marker(coordDestinoAjustada).bindPopup("<b>Destino:</b> " + destino);
+                
+                // Línea de ruta
+                const linea = L.polyline([coordOrigen, coordDestinoAjustada], {
+                    color: '#000', // Línea negra minimalista
+                    weight: 3,
+                    dashArray: '10, 10',
+                    lineCap: 'round'
+                });
+
+                capaRuta = L.layerGroup([markerOrigen, markerDestino, linea]);
+                capaRuta.addTo(mapaLogistico);
+
+                // Ajustar vista para que se vean ambos puntos
+                mapaLogistico.fitBounds(linea.getBounds(), { padding: [50, 50] });
             }
         }
 
@@ -396,7 +487,7 @@
                 calc_largo: "Largo (cm)", calc_ancho: "Ancho (cm)", calc_alto: "Alto (cm)", calc_cant: "Cantidad",
                 calc_btn: "Calcular Volumen", calc_res: "Resultado Total:",
                 
-                tiempo_titulo: "Tiempos de Tránsito", tiempo_desc: "Selecciona origen y destino para ver un estimado de días.",
+                tiempo_titulo: "Tiempos de Tránsito y Rutas", tiempo_desc: "Selecciona origen y destino para ver el estimado de días y visualizar la ruta logística.",
                 tiempo_pais_origen: "País Origen", tiempo_puerto_origen: "Puerto Origen",
                 tiempo_pais_destino: "País Destino", tiempo_puerto_destino: "Puerto Destino",
                 tiempo_btn: "Calcular Tiempo", tiempo_estimado: "Estimado Naviera:", tiempo_real: "Real Operativo:", tiempo_dias: "Días",
@@ -425,7 +516,7 @@
                 calc_largo: "Length (cm)", calc_ancho: "Width (cm)", calc_alto: "Height (cm)", calc_cant: "Quantity",
                 calc_btn: "Calculate Volume", calc_res: "Total Result:",
                 
-                tiempo_titulo: "Transit Times", tiempo_desc: "Select origin and destination to see estimated days.",
+                tiempo_titulo: "Transit Times & Routes", tiempo_desc: "Select origin and destination to see estimated days and routing map.",
                 tiempo_pais_origen: "Origin Country", tiempo_puerto_origen: "Origin Port",
                 tiempo_pais_destino: "Destination Country", tiempo_puerto_destino: "Destination Port",
                 tiempo_btn: "Calculate Time", tiempo_estimado: "Carrier ETA:", tiempo_real: "Real Operational:", tiempo_dias: "Days",
@@ -454,7 +545,7 @@
                 calc_largo: "长度 (cm)", calc_ancho: "宽度 (cm)", calc_alto: "高度 (cm)", calc_cant: "数量",
                 calc_btn: "计算体积", calc_res: "总结果：",
 
-                tiempo_titulo: "预计运输时间", tiempo_desc: "选择起运地和目的地查看预计天数。",
+                tiempo_titulo: "预计运输时间和路线", tiempo_desc: "选择起运地和目的地查看预计天数和路线图。",
                 tiempo_pais_origen: "起运国", tiempo_puerto_origen: "起运港",
                 tiempo_pais_destino: "目的国", tiempo_puerto_destino: "目的港",
                 tiempo_btn: "计算时间", tiempo_estimado: "承运人预计时间:", tiempo_real: "实际运营时间:", tiempo_dias: "天",
@@ -490,10 +581,16 @@
             });
         }
 
-        // Inicializar los filtros de puertos al cargar la página
+        // Inicializar todo al cargar la página
         window.onload = function() {
             actualizarPuertosOrigen();
             actualizarPuertosDestino();
+            inicializarMapa();
+            
+            // Un pequeño delay para que el mapa se pinte bien después de cargar
+            setTimeout(() => {
+                calcularTiempo();
+            }, 500);
         };
     </script>
 
