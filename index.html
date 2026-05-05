@@ -157,40 +157,51 @@
                         </div>
                     </div>
 
-                    <!-- 2. NUEVA: Calculadora de Tiempos de Tránsito -->
+                    <!-- 2. Calculadora de Tiempos de Tránsito (Actualizada con Real Operativo) -->
                     <div style="background: #f8f9fa; padding: 30px; border-radius: 8px; border-top: 4px solid #000000; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
-                        <h3 style="margin-top: 0; color: #000;"><i class="fas fa-clock"></i> <span data-i18n="tiempo_titulo">Tiempos de Tránsito Estimados</span></h3>
-                        <p style="font-size: 0.9em; color: #555;" data-i18n="tiempo_desc">Selecciona los puertos para ver un estimado de días en tránsito marítimo.</p>
+                        <h3 style="margin-top: 0; color: #000;"><i class="fas fa-clock"></i> <span data-i18n="tiempo_titulo">Tiempos de Tránsito</span></h3>
+                        <p style="font-size: 0.9em; color: #555;" data-i18n="tiempo_desc">Selecciona origen y destino para ver un estimado de días.</p>
                         
-                        <div style="margin-bottom: 15px;">
-                            <label style="font-size: 0.85em; font-weight: bold;" data-i18n="tiempo_origen">Puerto de Origen</label>
-                            <select id="puertoOrigen" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; margin-top: 5px;">
-                                <option value="china" data-i18n="opt_china">China (Shanghai, Ningbo, Shenzhen)</option>
-                                <option value="vietnam" data-i18n="opt_vietnam">Vietnam (Ho Chi Minh, Haiphong)</option>
-                                <option value="malasia" data-i18n="opt_malasia">Malasia (Port Klang)</option>
-                            </select>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                            <div>
+                                <label style="font-size: 0.85em; font-weight: bold;" data-i18n="tiempo_pais_origen">País Origen</label>
+                                <select id="paisOrigen" onchange="actualizarPuertosOrigen()" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; margin-top: 5px;">
+                                    <option value="CHINA">CHINA</option>
+                                    <option value="INDIA">INDIA</option>
+                                    <option value="INDONESIA">INDONESIA</option>
+                                    <option value="VIETNAM">VIETNAM</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="font-size: 0.85em; font-weight: bold;" data-i18n="tiempo_puerto_origen">Puerto Origen</label>
+                                <select id="puertoOrigen" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; margin-top: 5px;"></select>
+                            </div>
                         </div>
                         
-                        <div style="margin-bottom: 20px;">
-                            <label style="font-size: 0.85em; font-weight: bold;" data-i18n="tiempo_destino">Puerto de Destino</label>
-                            <select id="puertoDestino" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; margin-top: 5px;">
-                                <option value="manzanillo">Manzanillo, MX</option>
-                                <option value="lazaro">Lázaro Cárdenas, MX</option>
-                                <option value="longbeach" data-i18n="opt_lb">Long Beach, EE.UU.</option>
-                                <option value="houston" data-i18n="opt_houston">Houston, EE.UU.</option>
-                            </select>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                            <div>
+                                <label style="font-size: 0.85em; font-weight: bold;" data-i18n="tiempo_pais_destino">País Destino</label>
+                                <select id="paisDestino" onchange="actualizarPuertosDestino()" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; margin-top: 5px;">
+                                    <option value="MÉXICO">MÉXICO</option>
+                                    <option value="US">US</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="font-size: 0.85em; font-weight: bold;" data-i18n="tiempo_puerto_destino">Puerto Destino</label>
+                                <select id="puertoDestino" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; margin-top: 5px;"></select>
+                            </div>
                         </div>
                         
                         <button onclick="calcularTiempo()" style="width: 100%; background: #000; color: #fff; border: none; padding: 12px; border-radius: 4px; font-weight: bold; cursor: pointer;" data-i18n="tiempo_btn">Calcular Tiempo</button>
                         
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
                             <div style="background: #fff; padding: 15px; border-left: 4px solid #28a745;">
-                                <h4 style="margin: 0 0 5px 0; font-size: 0.8em; color: #555;" data-i18n="tiempo_rapido">Directo (Más Rápido):</h4>
-                                <p style="margin: 0; font-size: 1.3em; font-weight: bold; color: #000;"><span id="resDirecto">-</span> <span style="font-size: 0.6em;" data-i18n="tiempo_dias">Días</span></p>
+                                <h4 style="margin: 0 0 5px 0; font-size: 0.8em; color: #555;" data-i18n="tiempo_estimado">Estimado Naviera:</h4>
+                                <p style="margin: 0; font-size: 1.3em; font-weight: bold; color: #000;"><span id="resEstimado">-</span> <span style="font-size: 0.6em;" data-i18n="tiempo_dias">Días</span></p>
                             </div>
-                            <div style="background: #fff; padding: 15px; border-left: 4px solid #ffc107;">
-                                <h4 style="margin: 0 0 5px 0; font-size: 0.8em; color: #555;" data-i18n="tiempo_largo">Con Transbordo:</h4>
-                                <p style="margin: 0; font-size: 1.3em; font-weight: bold; color: #000;"><span id="resTransbordo">-</span> <span style="font-size: 0.6em;" data-i18n="tiempo_dias">Días</span></p>
+                            <div style="background: #fff; padding: 15px; border-left: 4px solid #dc3545;">
+                                <h4 style="margin: 0 0 5px 0; font-size: 0.8em; color: #555;" data-i18n="tiempo_real">Real Operativo:</h4>
+                                <p style="margin: 0; font-size: 1.3em; font-weight: bold; color: #000;"><span id="resReal">-</span> <span style="font-size: 0.6em;" data-i18n="tiempo_dias">Días</span></p>
                             </div>
                         </div>
                     </div>
@@ -286,7 +297,7 @@
     </footer>
 
     <!-- ========================================== -->
-    <!-- SCRIPTS: CALCULADORAS Y TRADUCTOR -->
+    <!-- SCRIPTS -->
     <!-- ========================================== -->
     <script>
         // 1. Calculadora CBM
@@ -301,36 +312,75 @@
             }
         }
 
-        // 2. NUEVO: Calculadora de Tiempos de Tránsito
+        // 2. Bases de Datos para los Filtros de Puertos
+        const puertosOrigenData = {
+            'CHINA': ['SHENZHEN', 'SHANGHAI', 'NINGBO', 'QINGDAO', 'TIANJIN', 'XIAMEN', 'SHANTOU', 'NANJING'],
+            'INDIA': ['CHENNAI', 'NHAVA SHEVA'],
+            'INDONESIA': ['JAKARTA', 'SURABAYA'],
+            'VIETNAM': ['HOCHIMINH', 'HAIPHONG']
+        };
+
+        const puertosDestinoData = {
+            'MÉXICO': ['LAZARO CARDENAS', 'MANZANILLO', 'PANTACO'],
+            'US': ['LONG BEACH', 'HOUSTON']
+        };
+
+        function actualizarPuertosOrigen() {
+            const pais = document.getElementById('paisOrigen').value;
+            const selectPuerto = document.getElementById('puertoOrigen');
+            selectPuerto.innerHTML = '';
+            puertosOrigenData[pais].forEach(puerto => {
+                let opt = document.createElement('option');
+                opt.value = puerto;
+                opt.innerHTML = puerto;
+                selectPuerto.appendChild(opt);
+            });
+        }
+
+        function actualizarPuertosDestino() {
+            const pais = document.getElementById('paisDestino').value;
+            const selectPuerto = document.getElementById('puertoDestino');
+            selectPuerto.innerHTML = '';
+            puertosDestinoData[pais].forEach(puerto => {
+                let opt = document.createElement('option');
+                opt.value = puerto;
+                opt.innerHTML = puerto;
+                selectPuerto.appendChild(opt);
+            });
+        }
+
+        // 3. Lógica de Tiempos de Tránsito (Actualizada para Naviera vs Real Operativo)
         function calcularTiempo() {
-            const origen = document.getElementById('puertoOrigen').value;
-            const destino = document.getElementById('puertoDestino').value;
+            const paisOrigen = document.getElementById('paisOrigen').value;
+            const puertoDestino = document.getElementById('puertoDestino').value;
 
-            // Días base hacia los destinos [Mínimo Directo, Máximo Transbordo]
+            // Días base: [Estimado Naviera, Real Operativo (con retrasos)]
             const tiemposBase = {
-                'manzanillo': [19, 28],
-                'lazaro': [20, 30],
-                'longbeach': [14, 25],
-                'houston': [26, 40]
+                'MANZANILLO': [21, 32],
+                'LAZARO CARDENAS': [22, 34],
+                'PANTACO': [26, 42], // Contemplando saturación de tren/autotransporte
+                'LONG BEACH': [16, 28],
+                'HOUSTON': [30, 45]
             };
 
-            // Días extra dependiendo de qué tan al sur esté el origen en Asia
-            const extraDias = {
-                'china': 0,
-                'vietnam': 4,
-                'malasia': 7
+            // Días extra dependiendo de la distancia del país de origen
+            const extraDiasOrigen = {
+                'CHINA': 0,
+                'VIETNAM': 4,
+                'INDONESIA': 7,
+                'INDIA': 15
             };
 
-            if (tiemposBase[destino] && extraDias[origen] !== undefined) {
-                const min = tiemposBase[destino][0] + extraDias[origen];
-                const max = tiemposBase[destino][1] + extraDias[origen];
+            if (tiemposBase[puertoDestino] && extraDiasOrigen[paisOrigen] !== undefined) {
+                const estimadoNaviera = tiemposBase[puertoDestino][0] + extraDiasOrigen[paisOrigen];
+                const realOperativo = tiemposBase[puertoDestino][1] + extraDiasOrigen[paisOrigen];
 
-                document.getElementById('resDirecto').innerText = min;
-                document.getElementById('resTransbordo').innerText = max;
+                document.getElementById('resEstimado').innerText = estimadoNaviera;
+                document.getElementById('resReal').innerText = realOperativo;
             }
         }
 
-        // 3. Diccionario de Idiomas ACTUALIZADO CON CALCULADORA DE TIEMPOS
+        // 4. Diccionario de Idiomas 
         const traducciones = {
             es: {
                 nav_inicio: "Inicio", nav_servicios: "Servicios", nav_herramientas: "Herramientas", nav_nosotros: "Nosotros", nav_contacto: "Contacto", nav_sistema: "Sistema",
@@ -338,23 +388,18 @@
                 hero_subtitulo: "Coordinación integral, eficiencia garantizada y control total de su cadena de suministro.",
                 hero_btn: "SOLICITAR COTIZACIÓN",
                 titulo_servicios: "Nuestros Servicios",
-                serv1_titulo: "COORDINACIÓN EN ORIGEN (CHINA)",
-                serv1_desc: "<ul><li>Oficina propia en China para gestión directa.</li><li>Coordinación eficiente con proveedores.</li><li>Gestión de Bookings con navieras.</li><li>Previos en origen antes del embarque.</li><li>Supervisión de carga en buque.</li></ul>",
-                serv2_titulo: "GESTIÓN DE IMPORTACIÓN (MÉXICO)",
-                serv2_desc: "<ul><li>Gestión integral con el Broker Aduanal de su elección.</li><li>Seguimiento puntual para liberación acelerada.</li><li>Trámites aduanales simplificados.</li></ul>",
-                serv3_titulo: "ENTREGA FINAL Y DEVOLUCIÓN",
-                serv3_desc: "<ul><li>Entrega directa en su CEDIS.</li><li>Entrega eficiente en puerto de destino.</li><li>Devolución oportuna de vacíos.</li></ul>",
+                serv1_titulo: "COORDINACIÓN EN ORIGEN (CHINA)", serv1_desc: "<ul><li>Oficina propia en China.</li><li>Coordinación con proveedores.</li><li>Gestión de Bookings.</li><li>Previos en origen.</li><li>Supervisión de carga.</li></ul>",
+                serv2_titulo: "GESTIÓN DE IMPORTACIÓN (MÉXICO)", serv2_desc: "<ul><li>Gestión con Broker Aduanal.</li><li>Liberación acelerada.</li><li>Trámites simplificados.</li></ul>",
+                serv3_titulo: "ENTREGA FINAL Y DEVOLUCIÓN", serv3_desc: "<ul><li>Entrega en CEDIS.</li><li>Entrega eficiente en puerto.</li><li>Devolución oportuna.</li></ul>",
                 titulo_herramientas: "Herramientas Logísticas",
-                calc_titulo: "Calculadora de CBM", calc_desc: "Ingresa las medidas en centímetros (cm) de tu caja estándar para conocer el volumen.",
+                calc_titulo: "Calculadora de CBM", calc_desc: "Ingresa las medidas en cm para conocer el volumen.",
                 calc_largo: "Largo (cm)", calc_ancho: "Ancho (cm)", calc_alto: "Alto (cm)", calc_cant: "Cantidad",
                 calc_btn: "Calcular Volumen", calc_res: "Resultado Total:",
                 
-                // Nuevas traducciones para Tiempos
-                tiempo_titulo: "Tiempos de Tránsito Estimados", tiempo_desc: "Selecciona los puertos para ver un estimado de días en tránsito marítimo.",
-                tiempo_origen: "Puerto de Origen", tiempo_destino: "Puerto de Destino",
-                opt_china: "China (Shanghai, Ningbo, Shenzhen)", opt_vietnam: "Vietnam (Ho Chi Minh, Haiphong)", opt_malasia: "Malasia (Port Klang)",
-                opt_lb: "Long Beach, EE.UU.", opt_houston: "Houston, EE.UU.",
-                tiempo_btn: "Calcular Tiempo", tiempo_rapido: "Directo (Más Rápido):", tiempo_largo: "Con Transbordo:", tiempo_dias: "Días",
+                tiempo_titulo: "Tiempos de Tránsito", tiempo_desc: "Selecciona origen y destino para ver un estimado de días.",
+                tiempo_pais_origen: "País Origen", tiempo_puerto_origen: "Puerto Origen",
+                tiempo_pais_destino: "País Destino", tiempo_puerto_destino: "Puerto Destino",
+                tiempo_btn: "Calcular Tiempo", tiempo_estimado: "Estimado Naviera:", tiempo_real: "Real Operativo:", tiempo_dias: "Días",
 
                 cap_titulo: "Capacidades Estándar",
                 cap_20: "L: 5.90m | A: 2.35m | Al: 2.39m", cap_20_peso: "Bruto: 30,480 kg | Tara: 2,200 kg | Neto: 28,280 kg",
@@ -362,9 +407,9 @@
                 cap_40hq: "L: 12.03m | A: 2.35m | Al: 2.69m", cap_40hq_peso: "Bruto: 30,480 kg | Tara: 3,900 kg | Neto: 26,580 kg",
                 cap_palet: "Palet Estándar Industrial", cap_palet_desc: "Base: 1.20m x 1.00m | Altura máx: 1.80m", cap_palet_peso: "Bruto: ~1,020 kg | Tara: ~20 kg | Neto: ~1,000 kg", cap_palet_vol: "Vol. Máx: ~2.1 CBM",
                 titulo_nosotros: "POR QUÉ ELEGIRNOS", 
-                why1_titulo: "RED GLOBAL", why1_desc: "Red global en China para gestión directa y supervisión de su carga.", why2_titulo: "EFICIENCIA", why2_desc: "Confianza y eficiencia en la coordinación con proveedores.", why3_titulo: "CONFIANZA", why3_desc: "Confianza y seguridad en el manejo de su mercancía.", why4_titulo: "CONTROL TOTAL", why4_desc: "Control total de su cadena de suministro.", why5_titulo: "EXPERIENCIA", why5_desc: "Contamos con más de 20 años de experiencia en el sector logístico.",
+                why1_titulo: "RED GLOBAL", why1_desc: "Red global en China para gestión directa.", why2_titulo: "EFICIENCIA", why2_desc: "Confianza y eficiencia en la coordinación.", why3_titulo: "CONFIANZA", why3_desc: "Confianza y seguridad en el manejo.", why4_titulo: "CONTROL TOTAL", why4_desc: "Control total de su cadena de suministro.", why5_titulo: "EXPERIENCIA", why5_desc: "Contamos con más de 20 años de experiencia.",
                 titulo_contacto: "CONTACTO", form_nombre: "Nombre", form_mensaje: "Mensaje", form_btn: "Enviar Mensaje",
-                contacto_dir: "Dirección: Av. Fuentes de Las Pirámides 16, Piso 3 oficina 1, Lomas de Tecamachalco, 53950 Naucalpan de Juárez, Méx."
+                contacto_dir: "Dirección: Av. Fuentes de Las Pirámides 16, Piso 3 oficina 1, Naucalpan de Juárez, Méx."
             },
             en: {
                 nav_inicio: "Home", nav_servicios: "Services", nav_herramientas: "Tools", nav_nosotros: "About Us", nav_contacto: "Contact", nav_sistema: "System",
@@ -372,19 +417,18 @@
                 hero_subtitulo: "Comprehensive coordination, guaranteed efficiency, and total control of your supply chain.",
                 hero_btn: "REQUEST A QUOTE",
                 titulo_servicios: "Our Services",
-                serv1_titulo: "ORIGIN COORDINATION (CHINA)", serv1_desc: "<ul><li>Own office in China for direct management.</li><li>Efficient coordination with suppliers.</li><li>Booking management.</li><li>Pre-shipment inspections.</li><li>Vessel loading supervision.</li></ul>",
-                serv2_titulo: "IMPORT MANAGEMENT (MEXICO)", serv2_desc: "<ul><li>Integral management with your chosen Customs Broker.</li><li>Punctual tracking for accelerated release.</li><li>Simplified customs procedures.</li></ul>",
-                serv3_titulo: "FINAL DELIVERY & RETURN", serv3_desc: "<ul><li>Direct delivery to your Distribution Center.</li><li>Efficient delivery at the destination port.</li><li>Timely return of empty containers.</li></ul>",
+                serv1_titulo: "ORIGIN COORDINATION (CHINA)", serv1_desc: "<ul><li>Own office in China.</li><li>Supplier coordination.</li><li>Booking management.</li><li>Pre-shipment inspections.</li><li>Loading supervision.</li></ul>",
+                serv2_titulo: "IMPORT MANAGEMENT (MEXICO)", serv2_desc: "<ul><li>Customs Broker management.</li><li>Accelerated release.</li><li>Simplified procedures.</li></ul>",
+                serv3_titulo: "FINAL DELIVERY & RETURN", serv3_desc: "<ul><li>Direct delivery to CEDIS.</li><li>Efficient port delivery.</li><li>Timely empty return.</li></ul>",
                 titulo_herramientas: "Logistics Tools",
-                calc_titulo: "CBM Calculator", calc_desc: "Enter the dimensions in centimeters (cm) to find the volume.",
+                calc_titulo: "CBM Calculator", calc_desc: "Enter dimensions in cm to find the volume.",
                 calc_largo: "Length (cm)", calc_ancho: "Width (cm)", calc_alto: "Height (cm)", calc_cant: "Quantity",
                 calc_btn: "Calculate Volume", calc_res: "Total Result:",
                 
-                tiempo_titulo: "Estimated Transit Times", tiempo_desc: "Select the ports to see an estimated ocean transit time in days.",
-                tiempo_origen: "Origin Port", tiempo_destino: "Destination Port",
-                opt_china: "China (Shanghai, Ningbo, Shenzhen)", opt_vietnam: "Vietnam (Ho Chi Minh, Haiphong)", opt_malasia: "Malaysia (Port Klang)",
-                opt_lb: "Long Beach, USA", opt_houston: "Houston, USA",
-                tiempo_btn: "Calculate Time", tiempo_rapido: "Direct (Fastest):", tiempo_largo: "With Transshipment:", tiempo_dias: "Days",
+                tiempo_titulo: "Transit Times", tiempo_desc: "Select origin and destination to see estimated days.",
+                tiempo_pais_origen: "Origin Country", tiempo_puerto_origen: "Origin Port",
+                tiempo_pais_destino: "Destination Country", tiempo_puerto_destino: "Destination Port",
+                tiempo_btn: "Calculate Time", tiempo_estimado: "Carrier ETA:", tiempo_real: "Real Operational:", tiempo_dias: "Days",
 
                 cap_titulo: "Standard Capacities",
                 cap_20: "L: 5.90m | W: 2.35m | H: 2.39m", cap_20_peso: "Gross: 30,480 kg | Tare: 2,200 kg | Net: 28,280 kg",
@@ -394,7 +438,7 @@
                 titulo_nosotros: "WHY CHOOSE US", 
                 why1_titulo: "GLOBAL NETWORK", why1_desc: "Global network in China for direct management.", why2_titulo: "EFFICIENCY", why2_desc: "Trust and efficiency in coordinating with suppliers.", why3_titulo: "TRUST", why3_desc: "Trust and security in handling your merchandise.", why4_titulo: "TOTAL CONTROL", why4_desc: "Total control of your supply chain.", why5_titulo: "EXPERIENCE", why5_desc: "Over 20 years of experience in the logistics sector.",
                 titulo_contacto: "CONTACT US", form_nombre: "Name", form_mensaje: "Message", form_btn: "Send Message",
-                contacto_dir: "Address: Av. Fuentes de Las Pirámides 16, Floor 3 office 1, Lomas de Tecamachalco, 53950 Naucalpan de Juárez, Mex."
+                contacto_dir: "Address: Av. Fuentes de Las Pirámides 16, Floor 3 office 1, Naucalpan de Juárez, Mex."
             },
             zh: {
                 nav_inicio: "首页", nav_servicios: "服务", nav_herramientas: "工具", nav_nosotros: "关于我们", nav_contacto: "联系", nav_sistema: "系统",
@@ -402,19 +446,18 @@
                 hero_subtitulo: "全面协调，效率保证，全面控制您的供应链。",
                 hero_btn: "索取报价",
                 titulo_servicios: "我们的服务",
-                serv1_titulo: "起运地协调 (中国)", serv1_desc: "<ul><li>在中国设有自己的办公室，直接管理。</li><li>与供应商高效协调。</li><li>与船公司预订舱位。</li><li>装船前检验。</li><li>船舶装载监督。</li></ul>",
-                serv2_titulo: "进口管理 (墨西哥)", serv2_desc: "<ul><li>与您选择的报关行进行全面管理。</li><li>准时跟踪以加速放行。</li><li>简化的海关程序。</li></ul>",
-                serv3_titulo: "最终交付与退箱", serv3_desc: "<ul><li>直接送达到您的配送中心。</li><li>目的港高效交付。</li><li>及时退还空集装箱。</li></ul>",
+                serv1_titulo: "起运地协调 (中国)", serv1_desc: "<ul><li>中国自有办公室。</li><li>供应商协调。</li><li>舱位预订。</li><li>装船前检验。</li><li>装载监督。</li></ul>",
+                serv2_titulo: "进口管理 (墨西哥)", serv2_desc: "<ul><li>报关行管理。</li><li>加速放行。</li><li>简化手续。</li></ul>",
+                serv3_titulo: "最终交付与退箱", serv3_desc: "<ul><li>直接送达配送中心。</li><li>港口高效交付。</li><li>及时退还空箱。</li></ul>",
                 titulo_herramientas: "物流工具",
-                calc_titulo: "CBM 计算器", calc_desc: "输入标准尺寸（厘米）以计算体积。",
+                calc_titulo: "CBM 计算器", calc_desc: "输入尺寸（厘米）以计算体积。",
                 calc_largo: "长度 (cm)", calc_ancho: "宽度 (cm)", calc_alto: "高度 (cm)", calc_cant: "数量",
                 calc_btn: "计算体积", calc_res: "总结果：",
 
-                tiempo_titulo: "预计运输时间", tiempo_desc: "选择港口查看预计的海上运输天数。",
-                tiempo_origen: "起运港", tiempo_destino: "目的港",
-                opt_china: "中国 (上海, 宁波, 深圳)", opt_vietnam: "越南 (胡志明, 海防)", opt_malasia: "马来西亚 (巴生港)",
-                opt_lb: "长滩, 美国", opt_houston: "休斯敦, 美国",
-                tiempo_btn: "计算时间", tiempo_rapido: "直达（最快）:", tiempo_largo: "中转:", tiempo_dias: "天",
+                tiempo_titulo: "预计运输时间", tiempo_desc: "选择起运地和目的地查看预计天数。",
+                tiempo_pais_origen: "起运国", tiempo_puerto_origen: "起运港",
+                tiempo_pais_destino: "目的国", tiempo_puerto_destino: "目的港",
+                tiempo_btn: "计算时间", tiempo_estimado: "承运人预计时间:", tiempo_real: "实际运营时间:", tiempo_dias: "天",
 
                 cap_titulo: "标准容量",
                 cap_20: "长: 5.90m | 宽: 2.35m | 高: 2.39m", cap_20_peso: "毛重: 30,480 kg | 皮重: 2,200 kg | 净重: 28,280 kg",
@@ -422,13 +465,13 @@
                 cap_40hq: "长: 12.03m | 宽: 2.35m | 高: 2.69m", cap_40hq_peso: "毛重: 30,480 kg | 皮重: 3,900 kg | 净重: 26,580 kg",
                 cap_palet: "标准工业托盘", cap_palet_desc: "底座: 1.20m x 1.00m | 最大高度: 1.80m", cap_palet_peso: "毛重: ~1,020 kg | 皮重: ~20 kg | 净重: ~1,000 kg", cap_palet_vol: "最大体积: ~2.1 CBM",
                 titulo_nosotros: "为什么选择我们", 
-                why1_titulo: "全球网络", why1_desc: "在中国的全球网络，直接管理和监督您的货物。", why2_titulo: "高效", why2_desc: "与供应商协调的信任和效率。", why3_titulo: "信任", why3_desc: "处理您货物的信任和安全。", why4_titulo: "全面控制", why4_desc: "全面控制您的供应链。", why5_titulo: "经验", why5_desc: "我们在国际物流领域拥有超过20年的经验。",
+                why1_titulo: "全球网络", why1_desc: "在中国的全球网络，直接管理。", why2_titulo: "高效", why2_desc: "与供应商协调的信任和效率。", why3_titulo: "信任", why3_desc: "处理货物的信任和安全。", why4_titulo: "全面控制", why4_desc: "全面控制您的供应链。", why5_titulo: "经验", why5_desc: "超过20年的物流经验。",
                 titulo_contacto: "联系我们", form_nombre: "姓名", form_mensaje: "信息", form_btn: "发送信息",
-                contacto_dir: "地址：Av. Fuentes de Las Pirámides 16, Floor 3 office 1, Lomas de Tecamachalco, 53950 Naucalpan de Juárez, Mex."
+                contacto_dir: "地址：Av. Fuentes de Las Pirámides 16, Floor 3 office 1, Naucalpan de Juárez, Mex."
             }
         };
 
-        // 4. Traductor dinámico
+        // 5. Función de Traducción Dinámica
         function cambiarIdioma(idioma) {
             const elementosTexto = document.querySelectorAll('[data-i18n]');
             elementosTexto.forEach(el => {
@@ -446,6 +489,12 @@
                 }
             });
         }
+
+        // Inicializar los filtros de puertos al cargar la página
+        window.onload = function() {
+            actualizarPuertosOrigen();
+            actualizarPuertosDestino();
+        };
     </script>
 
 </body>
