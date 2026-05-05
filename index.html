@@ -162,11 +162,21 @@
                         <button onclick="calcularCBM()" style="width: 100%; background: #000; color: #fff; border: none; padding: 12px; border-radius: 4px; font-weight: bold; cursor: pointer;" data-i18n="calc_btn">Calcular Volumen</button>
                         
                         <div style="margin-top: 20px; padding: 15px; background: #fff; border-left: 4px solid #000;">
-                            <h4 style="margin: 0 0 5px 0; font-size: 0.9em; color: #555;" data-i18n="calc_res">Resultado Total:</h4>
-                            <p style="margin: 0; font-size: 1.8em; font-weight: bold; color: #000;"><span id="resultadoCBM">0.00</span> <span style="font-size: 0.5em;">CBM</span></p>
-                        </div>
-                    </div>
+    <h4 style="margin: 0 0 5px 0; font-size: 0.9em; color: #555;" data-i18n="calc_res">Resultado Total:</h4>
+    <p style="margin: 0; font-size: 1.8em; font-weight: bold; color: #000;"><span id="resultadoCBM">0.00</span> <span style="font-size: 0.5em;">CBM</span></p>
+    
+    <!-- NUEVOS DATOS DE PALETIZACIÓN Y CONTENEDOR -->
+                <div style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed #ccc;">
+                    <p style="margin: 0 0 5px 0; font-size: 0.85em; color: #555;">
+                        <i class="fas fa-pallet"></i> Palets estimados: 
+                        <span id="resPalets" style="font-weight: bold; color: #000;">-</span>
+                    </p>
+                    <p style="margin: 0; font-size: 0.85em; color: #555;">
+                        <i class="fas fa-ship"></i> Sugerencia: 
+                        <span id="resContenedor" style="font-weight: bold; color: #000; color: #d9534f;">-</span>
+                    </p>
                 </div>
+            </div>
 
                 <!-- Columna Derecha: Diagramas de Capacidades -->
                 <div style="flex: 1; min-width: 320px;">
@@ -322,17 +332,58 @@
     <!-- SCRIPTS -->
     <!-- ========================================== -->
     <script>
-        // 1. Calculadora CBM
-        function calcularCBM() {
-            let largo = document.getElementById('largo').value;
-            let ancho = document.getElementById('ancho').value;
-            let alto = document.getElementById('alto').value;
-            let cantidad = document.getElementById('cantidad').value;
-            if(largo > 0 && ancho > 0 && alto > 0 && cantidad > 0) {
-                let cbmTotal = ((largo * ancho * alto) / 1000000) * cantidad;
-                document.getElementById('resultadoCBM').innerText = cbmTotal.toFixed(3);
-            }
+// 1. Calculadora CBM Avanzada (Volumen, Palets y Contenedor)
+function calcularCBM() {
+    let largo = parseFloat(document.getElementById('largo').value);
+    let ancho = parseFloat(document.getElementById('ancho').value);
+    let alto = parseFloat(document.getElementById('alto').value);
+    let cantidad = parseInt(document.getElementById('cantidad').value);
+
+    if(largo > 0 && ancho > 0 && alto > 0 && cantidad > 0) {
+        // A) Cálculo de CBM Total
+        let cbmTotal = ((largo * ancho * alto) / 1000000) * cantidad;
+        document.getElementById('resultadoCBM').innerText = cbmTotal.toFixed(3);
+
+        // B) Cálculo de Palets (Palet Estándar 120x100 cm. Altura máxima carga: 165 cm asumiendo 15cm de la madera)
+        // Probamos las dos formas de acomodar la caja en la base para optimizar
+        let base1 = Math.floor(120 / largo) * Math.floor(100 / ancho);
+        let base2 = Math.floor(120 / ancho) * Math.floor(100 / largo);
+        let maxBase = Math.max(base1, base2);
+        
+        let niveles = Math.floor(165 / alto); 
+        let cajasPorPalet = maxBase * niveles;
+        let paletsTotales = 0;
+
+        if (cajasPorPalet > 0) {
+            paletsTotales = Math.ceil(cantidad / cajasPorPalet);
+            document.getElementById('resPalets').innerText = paletsTotales + " (Aprox. " + cajasPorPalet + " cajas c/u)";
+        } else {
+            document.getElementById('resPalets').innerText = "La caja excede dimensiones del palet";
         }
+
+        // C) Recomendación de Contenedor
+        let sugerencia = "";
+        if (cbmTotal < 15) {
+            sugerencia = "LCL (Carga Consolidada)";
+        } else if (cbmTotal <= 28) {
+            sugerencia = "1x 20' GP";
+        } else if (cbmTotal <= 58) {
+            sugerencia = "1x 40' GP";
+        } else if (cbmTotal <= 68) {
+            sugerencia = "1x 40' HQ";
+        } else {
+            // Si es más de un HQ, calculamos cuántos y qué sobra
+            let hqCount = Math.floor(cbmTotal / 68);
+            let resto = cbmTotal % 68;
+            sugerencia = hqCount + "x 40' HQ";
+            
+            if (resto > 15 && resto <= 28) sugerencia += " + 1x 20' GP";
+            else if (resto > 28) sugerencia += " + 1x 40' GP";
+            else if (resto > 0) sugerencia += " + LCL";
+        }
+        document.getElementById('resContenedor').innerText = sugerencia;
+    }
+}
 
         // 2. Bases de Datos para los Filtros de Puertos
         const puertosOrigenData = {
